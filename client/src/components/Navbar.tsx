@@ -90,11 +90,11 @@ export default function Navbar() {
               alt="BeeJAI Logo" 
               className="h-10 w-auto"
             />
-            <div className="hidden sm:flex flex-col leading-tight">
+            <div className="hidden sm:flex items-baseline gap-1.5">
               <span className="font-light text-lg tracking-wide">
                 Bee<span className="text-primary font-medium">JAI</span>
               </span>
-              <span className="text-xs text-muted-foreground font-light">Bee 仔</span>
+              <span className="text-sm text-muted-foreground font-light">Bee仔</span>
             </div>
           </div>
         </Link>
