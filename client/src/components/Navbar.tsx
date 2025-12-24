@@ -65,7 +65,7 @@ const navItems = [
     label: "排名", 
     href: "/rankings", 
     icon: Trophy,
-    color: "text-yellow-500"
+    color: "text-yellow-600"
   },
 ];
 
@@ -82,15 +82,20 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
-        {/* Logo */}
+        {/* Logo with Bee 仔 */}
         <Link href="/">
           <div className="flex items-center gap-2 cursor-pointer">
-            <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-lg font-bold text-primary-foreground">B</span>
+            <img 
+              src="/beejai-logo.png" 
+              alt="BeeJAI Logo" 
+              className="h-10 w-auto"
+            />
+            <div className="hidden sm:flex flex-col leading-tight">
+              <span className="font-light text-lg tracking-wide">
+                Bee<span className="text-primary font-medium">JAI</span>
+              </span>
+              <span className="text-xs text-muted-foreground font-light">Bee 仔</span>
             </div>
-            <span className="font-bold text-xl hidden sm:block">
-              Bee<span className="text-primary">JAI</span>
-            </span>
           </div>
         </Link>
 
@@ -102,7 +107,7 @@ export default function Navbar() {
                 variant="ghost" 
                 size="sm"
                 className={cn(
-                  "gap-2",
+                  "gap-2 font-light",
                   location.includes(item.href.split("?")[0]) && "bg-accent"
                 )}
               >
@@ -140,7 +145,7 @@ export default function Navbar() {
                     <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
                       <User className="h-4 w-4 text-primary" />
                     </div>
-                    <span className="hidden md:block max-w-[100px] truncate">
+                    <span className="hidden md:block max-w-[100px] truncate font-light">
                       {user.name || "用戶"}
                     </span>
                     <ChevronDown className="h-4 w-4 text-muted-foreground" />
@@ -182,7 +187,7 @@ export default function Navbar() {
               </DropdownMenu>
             </>
           ) : (
-            <Button asChild>
+            <Button asChild className="font-light">
               <a href={getLoginUrl()}>登入</a>
             </Button>
           )}
@@ -197,12 +202,17 @@ export default function Navbar() {
             <SheetContent side="right" className="w-[280px]">
               <div className="flex flex-col gap-4 mt-8">
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                    <span className="text-xl font-bold text-primary-foreground">B</span>
+                  <img 
+                    src="/beejai-logo.png" 
+                    alt="BeeJAI Logo" 
+                    className="h-12 w-auto"
+                  />
+                  <div className="flex flex-col leading-tight">
+                    <span className="font-light text-xl tracking-wide">
+                      Bee<span className="text-primary font-medium">JAI</span>
+                    </span>
+                    <span className="text-xs text-muted-foreground font-light">Bee 仔</span>
                   </div>
-                  <span className="font-bold text-xl">
-                    Bee<span className="text-primary">JAI</span>
-                  </span>
                 </div>
                 
                 <nav className="flex flex-col gap-1">
@@ -210,7 +220,7 @@ export default function Navbar() {
                     <Link key={item.href} href={item.href}>
                       <Button 
                         variant="ghost" 
-                        className="w-full justify-start gap-3"
+                        className="w-full justify-start gap-3 font-light"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         <item.icon className={cn("h-5 w-5", item.color)} />
@@ -228,7 +238,7 @@ export default function Navbar() {
                         <Link href="/dashboard">
                           <Button 
                             variant="ghost" 
-                            className="w-full justify-start gap-3"
+                            className="w-full justify-start gap-3 font-light"
                             onClick={() => setMobileMenuOpen(false)}
                           >
                             <LayoutDashboard className="h-5 w-5" />
@@ -238,7 +248,7 @@ export default function Navbar() {
                         <Link href="/favorites">
                           <Button 
                             variant="ghost" 
-                            className="w-full justify-start gap-3"
+                            className="w-full justify-start gap-3 font-light"
                             onClick={() => setMobileMenuOpen(false)}
                           >
                             <Heart className="h-5 w-5" />
@@ -248,7 +258,7 @@ export default function Navbar() {
                         <Link href="/settings">
                           <Button 
                             variant="ghost" 
-                            className="w-full justify-start gap-3"
+                            className="w-full justify-start gap-3 font-light"
                             onClick={() => setMobileMenuOpen(false)}
                           >
                             <Settings className="h-5 w-5" />
