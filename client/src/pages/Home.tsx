@@ -24,7 +24,6 @@ import {
   School,
   Award,
   Filter,
-  Briefcase,
   Baby,
   BookOpenCheck
 } from "lucide-react";
@@ -38,7 +37,7 @@ const districts = [
   "葵青區", "荃灣區", "屯門區", "元朗區", "北區", "大埔區", "沙田區", "西貢區", "離島區"
 ];
 
-// 學校類型
+// 學校類型（用於卡片顯示）
 const schoolTypes = [
   { id: "kindergarten", name: "幼稚園", icon: Baby, color: "bg-pink-500", description: "K1-K3" },
   { id: "primary", name: "小學", icon: BookOpen, color: "bg-blue-500", description: "P1-P6" },
@@ -64,10 +63,10 @@ const quickFilters = [
 
 // 升學階段
 const admissionStages = [
-  { id: "k1", label: "K1 入學", icon: Baby, href: "/schools?type=kindergarten&grade=k1", color: "bg-pink-100 text-pink-700" },
-  { id: "p1", label: "小一入學", icon: BookOpen, href: "/schools?type=primary&grade=p1", color: "bg-blue-100 text-blue-700" },
-  { id: "s1", label: "中一入學", icon: Building2, href: "/schools?type=secondary&grade=s1", color: "bg-purple-100 text-purple-700" },
-  { id: "transfer", label: "插班申請", icon: BookOpenCheck, href: "/schools?admission=transfer", color: "bg-orange-100 text-orange-700" },
+  { id: "k1", label: "K1 入學", icon: Baby, href: "/schools?type=kindergarten&grade=k1", color: "bg-pink-100 text-pink-700 border-pink-200" },
+  { id: "p1", label: "小一入學", icon: BookOpen, href: "/schools?type=primary&grade=p1", color: "bg-blue-100 text-blue-700 border-blue-200" },
+  { id: "s1", label: "中一入學", icon: Building2, href: "/schools?type=secondary&grade=s1", color: "bg-purple-100 text-purple-700 border-purple-200" },
+  { id: "transfer", label: "插班申請", icon: BookOpenCheck, href: "/schools?admission=transfer", color: "bg-orange-100 text-orange-700 border-orange-200" },
 ];
 
 // 模擬熱門學校數據
@@ -195,126 +194,100 @@ export default function Home() {
   
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-background py-10 lg:py-14">
+      {/* Hero Section - 整合所有重要資訊 */}
+      <section className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-background py-8 lg:py-10">
         <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-light mb-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-light mb-4">
               <Sparkles className="h-4 w-4" />
               香港最全面的升學資訊平台
             </div>
             
-            <h1 className="text-3xl lg:text-4xl font-medium mb-4">
+            <h1 className="text-2xl lg:text-3xl font-medium mb-3">
               輕鬆掌握全港 <span className="text-primary">2000+</span> 學校入學資訊
             </h1>
             
-            <p className="text-lg text-muted-foreground mb-8 font-light">
+            <p className="text-base text-muted-foreground mb-6 font-light">
               一站式搜尋幼稚園、小學、中學及國際學校，追蹤申請截止日期，規劃升學之路
             </p>
             
             {/* Search Bar */}
-            <div className="relative max-w-xl mx-auto">
+            <div className="relative max-w-xl mx-auto mb-6">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input 
                 placeholder="搜尋學校名稱、地區或關鍵字..."
-                className="pl-12 pr-4 h-14 text-base rounded-full border-2 focus:border-primary font-light"
+                className="pl-12 pr-4 h-12 text-base rounded-full border-2 focus:border-primary font-light"
               />
               <Link href="/search">
-                <Button className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full px-6 font-light">
+                <Button className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full px-5 h-8 font-light text-sm">
                   搜尋
                 </Button>
               </Link>
             </div>
 
+            {/* 升學階段 - 移到 Hero 區域 */}
+            <div className="mb-6">
+              <p className="text-xs text-muted-foreground mb-3 font-light">升學階段</p>
+              <div className="flex justify-center gap-2 flex-wrap">
+                {admissionStages.map((stage) => (
+                  <Link key={stage.id} href={stage.href}>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className={`${stage.color} border hover:opacity-80 font-light text-xs h-8`}
+                    >
+                      <stage.icon className="h-3.5 w-3.5 mr-1.5" />
+                      {stage.label}
+                    </Button>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* 快速篩選 - 移到 Hero 區域 */}
+            <div className="bg-white/50 rounded-xl p-4 border border-border/50">
+              <div className="flex items-center justify-center gap-2 mb-3">
+                <Filter className="h-4 w-4 text-primary" />
+                <span className="text-sm font-medium">快速篩選</span>
+                <span className="text-xs text-muted-foreground font-light">— 一鍵找到合適學校</span>
+              </div>
+              <div className="flex flex-wrap justify-center gap-2">
+                {quickFilters.map((filter) => (
+                  <Link key={filter.id} href={filter.href}>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="font-light hover:border-primary hover:bg-primary/5 text-xs h-7 px-2.5"
+                    >
+                      <filter.icon className={`h-3.5 w-3.5 mr-1.5 ${filter.color}`} />
+                      {filter.label}
+                    </Button>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
             {/* Quick Stats */}
-            <div className="flex justify-center gap-8 mt-8 text-sm">
+            <div className="flex justify-center gap-8 mt-6 text-sm">
               <div className="text-center">
-                <p className="text-2xl font-medium text-primary">2000+</p>
-                <p className="text-muted-foreground font-light">學校資料</p>
+                <p className="text-xl font-medium text-primary">2000+</p>
+                <p className="text-muted-foreground font-light text-xs">學校資料</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-medium text-primary">18</p>
-                <p className="text-muted-foreground font-light">香港地區</p>
+                <p className="text-xl font-medium text-primary">18</p>
+                <p className="text-muted-foreground font-light text-xs">香港地區</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-medium text-primary">實時</p>
-                <p className="text-muted-foreground font-light">入學資訊</p>
+                <p className="text-xl font-medium text-primary">實時</p>
+                <p className="text-muted-foreground font-light text-xs">入學資訊</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* School Types - Main Categories */}
-      <section className="py-8 border-b">
-        <div className="container">
-          <div className="flex justify-center gap-4 flex-wrap">
-            {schoolTypes.map((type) => (
-              <Link key={type.id} href={`/schools?type=${type.id}`}>
-                <Button 
-                  variant="outline" 
-                  className="h-auto py-4 px-6 flex flex-col items-center gap-2 hover:border-primary hover:bg-primary/5 font-light"
-                >
-                  <div className={`w-12 h-12 rounded-full ${type.color} flex items-center justify-center`}>
-                    <type.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <span className="font-medium">{type.name}</span>
-                  <span className="text-xs text-muted-foreground">{type.description}</span>
-                </Button>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Admission Stages */}
-      <section className="py-6 bg-muted/30">
-        <div className="container">
-          <h3 className="text-center text-sm font-medium text-muted-foreground mb-4">升學階段</h3>
-          <div className="flex justify-center gap-3 flex-wrap">
-            {admissionStages.map((stage) => (
-              <Link key={stage.id} href={stage.href}>
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  className={`${stage.color} hover:opacity-80 font-light`}
-                >
-                  <stage.icon className="h-4 w-4 mr-2" />
-                  {stage.label}
-                </Button>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Filters - Extended Options */}
-      <section className="py-8">
-        <div className="container">
-          <div className="flex items-center gap-2 mb-4">
-            <Filter className="h-5 w-5 text-primary" />
-            <h3 className="text-lg font-medium">快速篩選</h3>
-            <span className="text-sm text-muted-foreground font-light">— 一鍵找到合適學校</span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {quickFilters.map((filter) => (
-              <Link key={filter.id} href={filter.href}>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  className="font-light hover:border-primary hover:bg-primary/5"
-                >
-                  <filter.icon className={`h-4 w-4 mr-2 ${filter.color}`} />
-                  {filter.label}
-                </Button>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Upcoming Deadlines */}
-      <section className="py-10 bg-muted/30">
+      <section className="py-8 bg-muted/30">
         <div className="container">
           <SectionHeader title="即將截止申請" href="/schools" icon={Clock} />
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
@@ -326,7 +299,7 @@ export default function Home() {
       </section>
 
       {/* Popular Schools */}
-      <section className="py-10">
+      <section className="py-8">
         <div className="container">
           <SectionHeader title="熱門學校" href="/schools?popular=true" icon={TrendingUp} />
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
@@ -338,7 +311,7 @@ export default function Home() {
       </section>
 
       {/* Latest News */}
-      <section className="py-10 bg-muted/30">
+      <section className="py-8 bg-muted/30">
         <div className="container">
           <SectionHeader title="最新入學消息" href="/schools" icon={Calendar} />
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
@@ -350,17 +323,17 @@ export default function Home() {
       </section>
 
       {/* Browse by District */}
-      <section className="py-10">
+      <section className="py-8">
         <div className="container">
           <SectionHeader title="按地區瀏覽" href="/search" icon={MapPin} />
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2">
             {districts.map((district) => (
               <Link key={district} href={`/schools?district=${district}`}>
                 <Button 
                   variant="outline" 
-                  className="w-full justify-start hover:border-primary hover:bg-primary/5 font-light"
+                  size="sm"
+                  className="w-full justify-center hover:border-primary hover:bg-primary/5 font-light text-xs h-8"
                 >
-                  <MapPin className="h-4 w-4 mr-2 text-primary" />
                   {district}
                 </Button>
               </Link>
@@ -371,18 +344,18 @@ export default function Home() {
 
       {/* CTA Section */}
       {!user && (
-        <section className="py-16 bg-primary/5">
+        <section className="py-12 bg-primary/5">
           <div className="container">
             <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-2xl font-medium mb-4">開始您的升學規劃之旅</h2>
-              <p className="text-muted-foreground mb-6 font-light">
+              <h2 className="text-xl font-medium mb-3">開始您的升學規劃之旅</h2>
+              <p className="text-muted-foreground mb-5 font-light text-sm">
                 註冊成為會員，收藏心儀學校、追蹤申請進度、獲取最新入學資訊提醒
               </p>
-              <div className="flex gap-4 justify-center">
-                <Button size="lg" className="px-8 font-light">
+              <div className="flex gap-3 justify-center">
+                <Button size="default" className="px-6 font-light">
                   免費註冊
                 </Button>
-                <Button size="lg" variant="outline" className="px-8 font-light">
+                <Button size="default" variant="outline" className="px-6 font-light">
                   了解更多
                 </Button>
               </div>
@@ -392,23 +365,23 @@ export default function Home() {
       )}
 
       {/* Footer */}
-      <footer className="py-8 border-t">
+      <footer className="py-6 border-t">
         <div className="container">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <img 
                 src="/beejai-logo.png" 
                 alt="BeeJAI Logo" 
-                className="h-10 w-auto"
+                className="h-8 w-auto"
               />
               <div className="flex flex-col leading-tight">
-                <span className="font-light text-lg">
+                <span className="font-light text-base">
                   Bee<span className="text-primary font-medium">JAI</span>
                 </span>
                 <span className="text-xs text-muted-foreground font-light">Bee 仔</span>
               </div>
             </div>
-            <p className="text-sm text-muted-foreground font-light">
+            <p className="text-xs text-muted-foreground font-light">
               © 2024 BeeJAI. 香港升學資訊平台
             </p>
           </div>
