@@ -103,7 +103,7 @@ function SchoolCard({ school }: { school: typeof mockPopularSchools[0] }) {
   
   return (
     <Link href={`/school/${school.id}`}>
-      <Card className="w-[280px] overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-xl hover:-translate-y-1 group flex-shrink-0 border-0 shadow-md">
+      <Card className="w-[280px] overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-xl hover:-translate-y-1 group flex-shrink-0 border border-gray-100 shadow-md bg-white">
         <div className="relative h-40 overflow-hidden">
           <img 
             src={school.image} 
@@ -111,7 +111,7 @@ function SchoolCard({ school }: { school: typeof mockPopularSchools[0] }) {
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
           />
           <div className="absolute top-2 right-2">
-            <Button variant="ghost" size="icon" className="bg-white/90 hover:bg-white shadow-sm" onClick={(e) => e.preventDefault()}>
+            <Button variant="ghost" size="icon" className="bg-white/90 hover:bg-amber-400 hover:text-gray-900 shadow-sm" onClick={(e) => e.preventDefault()}>
               <Heart className="h-4 w-4" />
             </Button>
           </div>
@@ -145,7 +145,7 @@ function DeadlineCard({ item }: { item: typeof mockUpcomingDeadlines[0] }) {
   
   return (
     <Link href={`/school/${item.id}`}>
-      <div className="w-[300px] p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow cursor-pointer flex-shrink-0 border border-gray-100">
+      <div className="w-[300px] p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow cursor-pointer flex-shrink-0 border border-amber-200">
         <div className="flex items-start justify-between mb-3">
           <div className="flex-1">
             <h4 className="font-medium text-sm line-clamp-2 text-gray-900">{item.schoolName}</h4>
@@ -166,26 +166,26 @@ function DeadlineCard({ item }: { item: typeof mockUpcomingDeadlines[0] }) {
 
 function NewsCard({ item }: { item: typeof mockLatestNews[0] }) {
   return (
-    <div className="w-[320px] p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow cursor-pointer flex-shrink-0 border border-gray-100">
-      <Badge variant="outline" className="mb-2 text-xs font-light border-amber-300 text-amber-700 bg-amber-50">{item.school}</Badge>
+    <div className="w-[320px] p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow cursor-pointer flex-shrink-0 border border-amber-200">
+      <Badge className="mb-2 text-xs font-medium bg-amber-400 text-gray-900 hover:bg-amber-500">{item.school}</Badge>
       <h4 className="font-medium text-sm mb-2 line-clamp-2 text-gray-900">{item.title}</h4>
       <p className="text-xs text-gray-500 font-light">{item.date}</p>
     </div>
   );
 }
 
-function SectionHeader({ title, href, icon: Icon, dark = false }: { title: string; href: string; icon?: any; dark?: boolean }) {
+function SectionHeader({ title, href, icon: Icon }: { title: string; href: string; icon?: any }) {
   return (
     <div className="flex items-center justify-between mb-5">
-      <h2 className={`text-xl font-semibold flex items-center gap-2 ${dark ? 'text-white' : 'text-gray-900'}`}>
-        {Icon && <Icon className={`h-5 w-5 ${dark ? 'text-amber-400' : 'text-amber-500'}`} />}
+      <h2 className="text-xl font-semibold flex items-center gap-2 text-gray-900">
+        {Icon && <Icon className="h-5 w-5 text-amber-500" />}
         {title}
       </h2>
       <Link href={href}>
         <Button 
           variant="ghost" 
           size="sm" 
-          className={`font-light ${dark ? 'text-amber-400 hover:text-amber-300 hover:bg-white/10' : 'text-gray-600 hover:text-gray-900'}`}
+          className="font-light text-gray-600 hover:text-gray-900 hover:bg-amber-50"
         >
           查看更多 <ChevronRight className="h-4 w-4 ml-1" />
         </Button>
@@ -203,13 +203,13 @@ export default function Home() {
       <section className="relative bg-amber-400 py-10 lg:py-12">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-gray-900 text-amber-400 px-4 py-1.5 rounded-full text-sm font-medium mb-4">
-              <Sparkles className="h-4 w-4" />
+            <div className="inline-flex items-center gap-2 bg-white text-gray-900 px-4 py-1.5 rounded-full text-sm font-medium mb-4 shadow-sm">
+              <Sparkles className="h-4 w-4 text-amber-500" />
               香港最全面的升學資訊平台
             </div>
             
             <h1 className="text-2xl lg:text-4xl font-bold mb-3 text-gray-900">
-              輕鬆掌握全港 <span className="text-white bg-gray-900 px-2 py-0.5 rounded">2000+</span> 學校入學資訊
+              輕鬆掌握全港 <span className="bg-white px-3 py-1 rounded-lg shadow-sm">2000+</span> 學校入學資訊
             </h1>
             
             <p className="text-base lg:text-lg text-gray-800 mb-6 font-light">
@@ -221,7 +221,7 @@ export default function Home() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
               <Input 
                 placeholder="搜尋學校名稱、地區或關鍵字..."
-                className="pl-12 pr-4 h-12 text-base rounded-full border-2 border-gray-900 focus:border-gray-900 font-light bg-white shadow-lg"
+                className="pl-12 pr-4 h-12 text-base rounded-full border-2 border-white focus:border-gray-900 font-light bg-white shadow-lg"
               />
               <Link href="/search">
                 <Button className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-full px-5 h-9 font-medium text-sm bg-gray-900 hover:bg-gray-800 text-white">
@@ -239,7 +239,7 @@ export default function Home() {
                     <Button 
                       variant="outline" 
                       size="sm"
-                      className="bg-white border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-medium text-xs h-8 shadow-md"
+                      className="bg-white border-2 border-white text-gray-900 hover:bg-gray-900 hover:text-white hover:border-gray-900 font-medium text-xs h-8 shadow-md"
                     >
                       <stage.icon className="h-3.5 w-3.5 mr-1.5" />
                       {stage.label}
@@ -250,18 +250,18 @@ export default function Home() {
             </div>
 
             {/* Quick Stats */}
-            <div className="flex justify-center gap-8 text-sm">
-              <div className="text-center bg-gray-900 text-white px-4 py-2 rounded-lg">
-                <p className="text-xl font-bold text-amber-400">2000+</p>
-                <p className="font-light text-xs">學校資料</p>
+            <div className="flex justify-center gap-6 text-sm">
+              <div className="text-center bg-white px-5 py-3 rounded-xl shadow-md">
+                <p className="text-2xl font-bold text-amber-500">2000+</p>
+                <p className="font-light text-xs text-gray-600">學校資料</p>
               </div>
-              <div className="text-center bg-gray-900 text-white px-4 py-2 rounded-lg">
-                <p className="text-xl font-bold text-amber-400">18</p>
-                <p className="font-light text-xs">香港地區</p>
+              <div className="text-center bg-white px-5 py-3 rounded-xl shadow-md">
+                <p className="text-2xl font-bold text-amber-500">18</p>
+                <p className="font-light text-xs text-gray-600">香港地區</p>
               </div>
-              <div className="text-center bg-gray-900 text-white px-4 py-2 rounded-lg">
-                <p className="text-xl font-bold text-amber-400">實時</p>
-                <p className="font-light text-xs">入學資訊</p>
+              <div className="text-center bg-white px-5 py-3 rounded-xl shadow-md">
+                <p className="text-2xl font-bold text-amber-500">實時</p>
+                <p className="font-light text-xs text-gray-600">入學資訊</p>
               </div>
             </div>
           </div>
@@ -275,13 +275,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 快速篩選 - 黑色資訊欄 */}
-      <section className="bg-gray-900 py-6">
+      {/* 快速篩選 - 淺黃色底 */}
+      <section className="bg-amber-50 py-6 border-b border-amber-100">
         <div className="container">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Filter className="h-4 w-4 text-amber-400" />
-            <span className="text-sm font-semibold text-white">快速篩選</span>
-            <span className="text-xs text-gray-400 font-light">— 一鍵找到合適學校</span>
+            <Filter className="h-4 w-4 text-amber-600" />
+            <span className="text-sm font-semibold text-gray-900">快速篩選</span>
+            <span className="text-xs text-gray-500 font-light">— 一鍵找到合適學校</span>
           </div>
           <div className="flex flex-wrap justify-center gap-2">
             {quickFilters.map((filter) => (
@@ -289,9 +289,9 @@ export default function Home() {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  className="font-light border-amber-400/50 text-amber-400 hover:bg-amber-400 hover:text-gray-900 hover:border-amber-400 text-xs h-7 px-3 bg-transparent"
+                  className="font-light border-amber-300 text-gray-700 hover:bg-amber-400 hover:text-gray-900 hover:border-amber-400 text-xs h-7 px-3 bg-white"
                 >
-                  <filter.icon className="h-3.5 w-3.5 mr-1.5" />
+                  <filter.icon className="h-3.5 w-3.5 mr-1.5 text-amber-600" />
                   {filter.label}
                 </Button>
               </Link>
@@ -312,8 +312,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Popular Schools - 淺灰底 */}
-      <section className="py-10 bg-gray-50">
+      {/* Popular Schools - 淺黃色底 */}
+      <section className="py-10 bg-amber-50">
         <div className="container">
           <SectionHeader title="熱門學校" href="/schools?popular=true" icon={TrendingUp} />
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
@@ -324,10 +324,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Latest News - 黑色資訊欄 */}
-      <section className="py-10 bg-gray-900">
+      {/* Latest News - 白色底 */}
+      <section className="py-10 bg-white">
         <div className="container">
-          <SectionHeader title="最新入學消息" href="/schools" icon={Calendar} dark />
+          <SectionHeader title="最新入學消息" href="/schools" icon={Calendar} />
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
             {mockLatestNews.map((item) => (
               <NewsCard key={item.id} item={item} />
@@ -336,8 +336,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Browse by District - 白色底 */}
-      <section className="py-10 bg-white">
+      {/* Browse by District - 淺黃色底 */}
+      <section className="py-10 bg-amber-50">
         <div className="container">
           <SectionHeader title="按地區瀏覽" href="/search" icon={MapPin} />
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2">
@@ -346,7 +346,7 @@ export default function Home() {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  className="w-full justify-center border-gray-200 hover:border-amber-400 hover:bg-amber-50 hover:text-gray-900 font-light text-xs h-8"
+                  className="w-full justify-center border-amber-200 bg-white hover:border-amber-400 hover:bg-amber-400 hover:text-gray-900 font-light text-xs h-8 text-gray-700"
                 >
                   {district}
                 </Button>
@@ -370,7 +370,7 @@ export default function Home() {
                   免費註冊
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
-                <Button size="default" variant="outline" className="px-6 font-medium border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white">
+                <Button size="default" variant="outline" className="px-6 font-medium border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white bg-transparent">
                   了解更多
                 </Button>
               </div>
@@ -379,8 +379,8 @@ export default function Home() {
         </section>
       )}
 
-      {/* Footer - 黑色 */}
-      <footer className="py-8 bg-gray-900">
+      {/* Footer - 白色底配黃色點綴 */}
+      <footer className="py-8 bg-white border-t border-amber-100">
         <div className="container">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
@@ -390,13 +390,13 @@ export default function Home() {
                 className="h-10 w-auto"
               />
               <div className="flex items-baseline gap-1.5">
-                <span className="font-light text-lg text-white">
-                  Bee<span className="text-amber-400 font-semibold">JAI</span>
+                <span className="font-light text-lg text-gray-900">
+                  Bee<span className="text-amber-500 font-semibold">JAI</span>
                 </span>
-                <span className="text-sm text-gray-400 font-light">Bee仔</span>
+                <span className="text-sm text-gray-500 font-light">Bee仔</span>
               </div>
             </div>
-            <p className="text-xs text-gray-400 font-light">
+            <p className="text-xs text-gray-500 font-light">
               © 2024 BeeJAI. 香港升學資訊平台
             </p>
           </div>
