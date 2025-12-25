@@ -25,7 +25,8 @@ import {
   Award,
   Filter,
   Baby,
-  BookOpenCheck
+  BookOpenCheck,
+  ArrowRight
 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -47,26 +48,26 @@ const schoolTypes = [
 
 // 快速篩選選項
 const quickFilters = [
-  { id: "band1", label: "Band 1 學校", icon: Award, href: "/schools?band=1", color: "text-yellow-600" },
-  { id: "dss", label: "直資學校", icon: School, href: "/schools?category=dss", color: "text-blue-600" },
-  { id: "aided", label: "資助學校", icon: Users, href: "/schools?category=aided", color: "text-green-600" },
-  { id: "private", label: "私立學校", icon: DollarSign, href: "/schools?category=private", color: "text-purple-600" },
-  { id: "english", label: "英文授課", icon: Languages, href: "/schools?language=english", color: "text-red-600" },
-  { id: "chinese", label: "中文授課", icon: Languages, href: "/schools?language=chinese", color: "text-orange-600" },
-  { id: "boys", label: "男校", icon: Users, href: "/schools?gender=boys", color: "text-blue-500" },
-  { id: "girls", label: "女校", icon: Users, href: "/schools?gender=girls", color: "text-pink-500" },
-  { id: "coed", label: "男女校", icon: Users, href: "/schools?gender=coed", color: "text-teal-600" },
-  { id: "christian", label: "基督教學校", icon: Church, href: "/schools?religion=christian", color: "text-indigo-600" },
-  { id: "catholic", label: "天主教學校", icon: Church, href: "/schools?religion=catholic", color: "text-violet-600" },
-  { id: "free", label: "免學費", icon: DollarSign, href: "/schools?tuitionMax=0", color: "text-emerald-600" },
+  { id: "band1", label: "Band 1 學校", icon: Award, href: "/schools?band=1" },
+  { id: "dss", label: "直資學校", icon: School, href: "/schools?category=dss" },
+  { id: "aided", label: "資助學校", icon: Users, href: "/schools?category=aided" },
+  { id: "private", label: "私立學校", icon: DollarSign, href: "/schools?category=private" },
+  { id: "english", label: "英文授課", icon: Languages, href: "/schools?language=english" },
+  { id: "chinese", label: "中文授課", icon: Languages, href: "/schools?language=chinese" },
+  { id: "boys", label: "男校", icon: Users, href: "/schools?gender=boys" },
+  { id: "girls", label: "女校", icon: Users, href: "/schools?gender=girls" },
+  { id: "coed", label: "男女校", icon: Users, href: "/schools?gender=coed" },
+  { id: "christian", label: "基督教學校", icon: Church, href: "/schools?religion=christian" },
+  { id: "catholic", label: "天主教學校", icon: Church, href: "/schools?religion=catholic" },
+  { id: "free", label: "免學費", icon: DollarSign, href: "/schools?tuitionMax=0" },
 ];
 
 // 升學階段
 const admissionStages = [
-  { id: "k1", label: "K1 入學", icon: Baby, href: "/schools?type=kindergarten&grade=k1", color: "bg-pink-100 text-pink-700 border-pink-200" },
-  { id: "p1", label: "小一入學", icon: BookOpen, href: "/schools?type=primary&grade=p1", color: "bg-blue-100 text-blue-700 border-blue-200" },
-  { id: "s1", label: "中一入學", icon: Building2, href: "/schools?type=secondary&grade=s1", color: "bg-purple-100 text-purple-700 border-purple-200" },
-  { id: "transfer", label: "插班申請", icon: BookOpenCheck, href: "/schools?admission=transfer", color: "bg-orange-100 text-orange-700 border-orange-200" },
+  { id: "k1", label: "K1 入學", icon: Baby, href: "/schools?type=kindergarten&grade=k1" },
+  { id: "p1", label: "小一入學", icon: BookOpen, href: "/schools?type=primary&grade=p1" },
+  { id: "s1", label: "中一入學", icon: Building2, href: "/schools?type=secondary&grade=s1" },
+  { id: "transfer", label: "插班申請", icon: BookOpenCheck, href: "/schools?admission=transfer" },
 ];
 
 // 模擬熱門學校數據
@@ -102,7 +103,7 @@ function SchoolCard({ school }: { school: typeof mockPopularSchools[0] }) {
   
   return (
     <Link href={`/school/${school.id}`}>
-      <Card className="w-[280px] overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-lg hover:-translate-y-1 group flex-shrink-0">
+      <Card className="w-[280px] overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-xl hover:-translate-y-1 group flex-shrink-0 border-0 shadow-md">
         <div className="relative h-40 overflow-hidden">
           <img 
             src={school.image} 
@@ -110,7 +111,7 @@ function SchoolCard({ school }: { school: typeof mockPopularSchools[0] }) {
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
           />
           <div className="absolute top-2 right-2">
-            <Button variant="ghost" size="icon" className="bg-white/80 hover:bg-white" onClick={(e) => e.preventDefault()}>
+            <Button variant="ghost" size="icon" className="bg-white/90 hover:bg-white shadow-sm" onClick={(e) => e.preventDefault()}>
               <Heart className="h-4 w-4" />
             </Button>
           </div>
@@ -120,14 +121,14 @@ function SchoolCard({ school }: { school: typeof mockPopularSchools[0] }) {
             </Badge>
           </div>
         </div>
-        <CardContent className="p-4">
-          <h3 className="font-medium text-base mb-2 line-clamp-2">{school.name}</h3>
-          <div className="flex items-center justify-between text-sm text-muted-foreground">
+        <CardContent className="p-4 bg-white">
+          <h3 className="font-medium text-base mb-2 line-clamp-2 text-gray-900">{school.name}</h3>
+          <div className="flex items-center justify-between text-sm text-gray-500">
             <span className="flex items-center gap-1 font-light">
               <MapPin className="h-3 w-3" />
               {school.district}
             </span>
-            <span className="flex items-center gap-1 text-primary">
+            <span className="flex items-center gap-1 text-amber-500">
               <Star className="h-3 w-3 fill-current" />
               {school.rating}
             </span>
@@ -139,49 +140,53 @@ function SchoolCard({ school }: { school: typeof mockPopularSchools[0] }) {
 }
 
 function DeadlineCard({ item }: { item: typeof mockUpcomingDeadlines[0] }) {
-  const urgencyClass = item.daysLeft <= 7 ? "bg-red-100 text-red-700" : 
-                       item.daysLeft <= 14 ? "bg-orange-100 text-orange-700" : "bg-green-100 text-green-700";
+  const urgencyClass = item.daysLeft <= 7 ? "bg-red-500 text-white" : 
+                       item.daysLeft <= 14 ? "bg-orange-500 text-white" : "bg-amber-400 text-gray-900";
   
   return (
     <Link href={`/school/${item.id}`}>
-      <Card className="w-[300px] p-4 hover:shadow-md transition-shadow cursor-pointer flex-shrink-0">
+      <div className="w-[300px] p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow cursor-pointer flex-shrink-0 border border-gray-100">
         <div className="flex items-start justify-between mb-3">
           <div className="flex-1">
-            <h4 className="font-medium text-sm line-clamp-2">{item.schoolName}</h4>
+            <h4 className="font-medium text-sm line-clamp-2 text-gray-900">{item.schoolName}</h4>
           </div>
-          <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${urgencyClass}`}>
+          <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${urgencyClass}`}>
             <Clock className="h-3 w-3" />
             {item.daysLeft} 天
           </span>
         </div>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground font-light">
+        <div className="flex items-center gap-2 text-xs text-gray-500 font-light">
           <Calendar className="h-3 w-3" />
           截止日期：{item.deadline.toLocaleDateString('zh-HK')}
         </div>
-      </Card>
+      </div>
     </Link>
   );
 }
 
 function NewsCard({ item }: { item: typeof mockLatestNews[0] }) {
   return (
-    <Card className="w-[320px] p-4 hover:shadow-md transition-shadow cursor-pointer flex-shrink-0">
-      <Badge variant="outline" className="mb-2 text-xs font-light">{item.school}</Badge>
-      <h4 className="font-medium text-sm mb-2 line-clamp-2">{item.title}</h4>
-      <p className="text-xs text-muted-foreground font-light">{item.date}</p>
-    </Card>
+    <div className="w-[320px] p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow cursor-pointer flex-shrink-0 border border-gray-100">
+      <Badge variant="outline" className="mb-2 text-xs font-light border-amber-300 text-amber-700 bg-amber-50">{item.school}</Badge>
+      <h4 className="font-medium text-sm mb-2 line-clamp-2 text-gray-900">{item.title}</h4>
+      <p className="text-xs text-gray-500 font-light">{item.date}</p>
+    </div>
   );
 }
 
-function SectionHeader({ title, href, icon: Icon }: { title: string; href: string; icon?: any }) {
+function SectionHeader({ title, href, icon: Icon, dark = false }: { title: string; href: string; icon?: any; dark?: boolean }) {
   return (
-    <div className="flex items-center justify-between mb-4">
-      <h2 className="text-xl font-medium flex items-center gap-2">
-        {Icon && <Icon className="h-5 w-5 text-primary" />}
+    <div className="flex items-center justify-between mb-5">
+      <h2 className={`text-xl font-semibold flex items-center gap-2 ${dark ? 'text-white' : 'text-gray-900'}`}>
+        {Icon && <Icon className={`h-5 w-5 ${dark ? 'text-amber-400' : 'text-amber-500'}`} />}
         {title}
       </h2>
       <Link href={href}>
-        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground font-light">
+        <Button 
+          variant="ghost" 
+          size="sm" 
+          className={`font-light ${dark ? 'text-amber-400 hover:text-amber-300 hover:bg-white/10' : 'text-gray-600 hover:text-gray-900'}`}
+        >
           查看更多 <ChevronRight className="h-4 w-4 ml-1" />
         </Button>
       </Link>
@@ -193,48 +198,48 @@ export default function Home() {
   const { user } = useAuth();
   
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section - 整合所有重要資訊 */}
-      <section className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-background py-8 lg:py-10">
+    <div className="min-h-screen bg-white">
+      {/* Hero Section - 黃色 Banner */}
+      <section className="relative bg-amber-400 py-10 lg:py-12">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-light mb-4">
+            <div className="inline-flex items-center gap-2 bg-gray-900 text-amber-400 px-4 py-1.5 rounded-full text-sm font-medium mb-4">
               <Sparkles className="h-4 w-4" />
               香港最全面的升學資訊平台
             </div>
             
-            <h1 className="text-2xl lg:text-3xl font-medium mb-3">
-              輕鬆掌握全港 <span className="text-primary">2000+</span> 學校入學資訊
+            <h1 className="text-2xl lg:text-4xl font-bold mb-3 text-gray-900">
+              輕鬆掌握全港 <span className="text-white bg-gray-900 px-2 py-0.5 rounded">2000+</span> 學校入學資訊
             </h1>
             
-            <p className="text-base text-muted-foreground mb-6 font-light">
+            <p className="text-base lg:text-lg text-gray-800 mb-6 font-light">
               一站式搜尋幼稚園、小學、中學及國際學校，追蹤申請截止日期，規劃升學之路
             </p>
             
             {/* Search Bar */}
             <div className="relative max-w-xl mx-auto mb-6">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
               <Input 
                 placeholder="搜尋學校名稱、地區或關鍵字..."
-                className="pl-12 pr-4 h-12 text-base rounded-full border-2 focus:border-primary font-light"
+                className="pl-12 pr-4 h-12 text-base rounded-full border-2 border-gray-900 focus:border-gray-900 font-light bg-white shadow-lg"
               />
               <Link href="/search">
-                <Button className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full px-5 h-8 font-light text-sm">
+                <Button className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-full px-5 h-9 font-medium text-sm bg-gray-900 hover:bg-gray-800 text-white">
                   搜尋
                 </Button>
               </Link>
             </div>
 
-            {/* 升學階段 - 移到 Hero 區域 */}
+            {/* 升學階段 */}
             <div className="mb-6">
-              <p className="text-xs text-muted-foreground mb-3 font-light">升學階段</p>
+              <p className="text-xs text-gray-700 mb-3 font-medium">升學階段</p>
               <div className="flex justify-center gap-2 flex-wrap">
                 {admissionStages.map((stage) => (
                   <Link key={stage.id} href={stage.href}>
                     <Button 
                       variant="outline" 
                       size="sm"
-                      className={`${stage.color} border hover:opacity-80 font-light text-xs h-8`}
+                      className="bg-white border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-medium text-xs h-8 shadow-md"
                     >
                       <stage.icon className="h-3.5 w-3.5 mr-1.5" />
                       {stage.label}
@@ -244,50 +249,59 @@ export default function Home() {
               </div>
             </div>
 
-            {/* 快速篩選 - 移到 Hero 區域 */}
-            <div className="bg-white/50 rounded-xl p-4 border border-border/50">
-              <div className="flex items-center justify-center gap-2 mb-3">
-                <Filter className="h-4 w-4 text-primary" />
-                <span className="text-sm font-medium">快速篩選</span>
-                <span className="text-xs text-muted-foreground font-light">— 一鍵找到合適學校</span>
-              </div>
-              <div className="flex flex-wrap justify-center gap-2">
-                {quickFilters.map((filter) => (
-                  <Link key={filter.id} href={filter.href}>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      className="font-light hover:border-primary hover:bg-primary/5 text-xs h-7 px-2.5"
-                    >
-                      <filter.icon className={`h-3.5 w-3.5 mr-1.5 ${filter.color}`} />
-                      {filter.label}
-                    </Button>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
             {/* Quick Stats */}
-            <div className="flex justify-center gap-8 mt-6 text-sm">
-              <div className="text-center">
-                <p className="text-xl font-medium text-primary">2000+</p>
-                <p className="text-muted-foreground font-light text-xs">學校資料</p>
+            <div className="flex justify-center gap-8 text-sm">
+              <div className="text-center bg-gray-900 text-white px-4 py-2 rounded-lg">
+                <p className="text-xl font-bold text-amber-400">2000+</p>
+                <p className="font-light text-xs">學校資料</p>
               </div>
-              <div className="text-center">
-                <p className="text-xl font-medium text-primary">18</p>
-                <p className="text-muted-foreground font-light text-xs">香港地區</p>
+              <div className="text-center bg-gray-900 text-white px-4 py-2 rounded-lg">
+                <p className="text-xl font-bold text-amber-400">18</p>
+                <p className="font-light text-xs">香港地區</p>
               </div>
-              <div className="text-center">
-                <p className="text-xl font-medium text-primary">實時</p>
-                <p className="text-muted-foreground font-light text-xs">入學資訊</p>
+              <div className="text-center bg-gray-900 text-white px-4 py-2 rounded-lg">
+                <p className="text-xl font-bold text-amber-400">實時</p>
+                <p className="font-light text-xs">入學資訊</p>
               </div>
             </div>
           </div>
         </div>
+        
+        {/* 波浪分隔線 */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+            <path d="M0 60V30C240 50 480 10 720 30C960 50 1200 10 1440 30V60H0Z" fill="white"/>
+          </svg>
+        </div>
       </section>
 
-      {/* Upcoming Deadlines */}
-      <section className="py-8 bg-muted/30">
+      {/* 快速篩選 - 黑色資訊欄 */}
+      <section className="bg-gray-900 py-6">
+        <div className="container">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Filter className="h-4 w-4 text-amber-400" />
+            <span className="text-sm font-semibold text-white">快速篩選</span>
+            <span className="text-xs text-gray-400 font-light">— 一鍵找到合適學校</span>
+          </div>
+          <div className="flex flex-wrap justify-center gap-2">
+            {quickFilters.map((filter) => (
+              <Link key={filter.id} href={filter.href}>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="font-light border-amber-400/50 text-amber-400 hover:bg-amber-400 hover:text-gray-900 hover:border-amber-400 text-xs h-7 px-3 bg-transparent"
+                >
+                  <filter.icon className="h-3.5 w-3.5 mr-1.5" />
+                  {filter.label}
+                </Button>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Upcoming Deadlines - 白色底 */}
+      <section className="py-10 bg-white">
         <div className="container">
           <SectionHeader title="即將截止申請" href="/schools" icon={Clock} />
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
@@ -298,8 +312,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Popular Schools */}
-      <section className="py-8">
+      {/* Popular Schools - 淺灰底 */}
+      <section className="py-10 bg-gray-50">
         <div className="container">
           <SectionHeader title="熱門學校" href="/schools?popular=true" icon={TrendingUp} />
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
@@ -310,10 +324,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Latest News */}
-      <section className="py-8 bg-muted/30">
+      {/* Latest News - 黑色資訊欄 */}
+      <section className="py-10 bg-gray-900">
         <div className="container">
-          <SectionHeader title="最新入學消息" href="/schools" icon={Calendar} />
+          <SectionHeader title="最新入學消息" href="/schools" icon={Calendar} dark />
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
             {mockLatestNews.map((item) => (
               <NewsCard key={item.id} item={item} />
@@ -322,8 +336,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Browse by District */}
-      <section className="py-8">
+      {/* Browse by District - 白色底 */}
+      <section className="py-10 bg-white">
         <div className="container">
           <SectionHeader title="按地區瀏覽" href="/search" icon={MapPin} />
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2">
@@ -332,7 +346,7 @@ export default function Home() {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  className="w-full justify-center hover:border-primary hover:bg-primary/5 font-light text-xs h-8"
+                  className="w-full justify-center border-gray-200 hover:border-amber-400 hover:bg-amber-50 hover:text-gray-900 font-light text-xs h-8"
                 >
                   {district}
                 </Button>
@@ -342,20 +356,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section - 黃色 Banner */}
       {!user && (
-        <section className="py-12 bg-primary/5">
+        <section className="py-12 bg-amber-400">
           <div className="container">
             <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-xl font-medium mb-3">開始您的升學規劃之旅</h2>
-              <p className="text-muted-foreground mb-5 font-light text-sm">
+              <h2 className="text-xl lg:text-2xl font-bold mb-3 text-gray-900">開始您的升學規劃之旅</h2>
+              <p className="text-gray-800 mb-5 font-light text-sm">
                 註冊成為會員，收藏心儀學校、追蹤申請進度、獲取最新入學資訊提醒
               </p>
               <div className="flex gap-3 justify-center">
-                <Button size="default" className="px-6 font-light">
+                <Button size="default" className="px-6 font-medium bg-gray-900 hover:bg-gray-800 text-white">
                   免費註冊
+                  <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>
-                <Button size="default" variant="outline" className="px-6 font-light">
+                <Button size="default" variant="outline" className="px-6 font-medium border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white">
                   了解更多
                 </Button>
               </div>
@@ -364,24 +379,24 @@ export default function Home() {
         </section>
       )}
 
-      {/* Footer */}
-      <footer className="py-6 border-t">
+      {/* Footer - 黑色 */}
+      <footer className="py-8 bg-gray-900">
         <div className="container">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <img 
                 src="/beejai-logo.png" 
                 alt="BeeJAI Logo" 
-                className="h-8 w-auto"
+                className="h-10 w-auto"
               />
-              <div className="flex flex-col leading-tight">
-                <span className="font-light text-base">
-                  Bee<span className="text-primary font-medium">JAI</span>
+              <div className="flex items-baseline gap-1.5">
+                <span className="font-light text-lg text-white">
+                  Bee<span className="text-amber-400 font-semibold">JAI</span>
                 </span>
-                <span className="text-xs text-muted-foreground font-light">Bee 仔</span>
+                <span className="text-sm text-gray-400 font-light">Bee仔</span>
               </div>
             </div>
-            <p className="text-xs text-muted-foreground font-light">
+            <p className="text-xs text-gray-400 font-light">
               © 2024 BeeJAI. 香港升學資訊平台
             </p>
           </div>
