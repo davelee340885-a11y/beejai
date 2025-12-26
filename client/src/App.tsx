@@ -11,6 +11,8 @@ import SchoolDetail from "./pages/SchoolDetail";
 import Dashboard from "./pages/Dashboard";
 import Favorites from "./pages/Favorites";
 import Search from "./pages/Search";
+import Guides from "./pages/Guides";
+import GuideDetail from "./pages/GuideDetail";
 
 function Router() {
   return (
@@ -21,6 +23,8 @@ function Router() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/favorites" component={Favorites} />
       <Route path="/search" component={Search} />
+      <Route path="/guides" component={Guides} />
+      <Route path="/guides/:id" component={GuideDetail} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

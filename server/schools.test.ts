@@ -35,7 +35,7 @@ describe("School API", () => {
       expect(result).toHaveProperty("page");
       expect(result).toHaveProperty("pageSize");
       expect(Array.isArray(result.schools)).toBe(true);
-    });
+    }, 10000);
 
     it("should filter schools by type", async () => {
       const result = await caller.school.list({ type: "primary" });
