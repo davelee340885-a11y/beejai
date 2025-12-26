@@ -421,6 +421,110 @@ const guideContents: Record<string, {
       { id: "p1-knocking", title: "小一叩門攻略" }
     ]
   },
+  "playgroup-guide": {
+    title: "Playgroup 推薦第一步策劃",
+    subtitle: "孩子社交學習的起點",
+    readTime: "12 分鐘",
+    targetAudience: "0-3 歲孩子的家長",
+    lastUpdated: "2024年12月",
+    heroColor: "from-green-400 to-green-300",
+    sections: [
+      {
+        title: "什麼是 Playgroup？",
+        content: "Playgroup 是一種為 0-3 歲孩子設計的遊戲小組活動，讓孩子在家長陪同下與其他小朋友互動，培養社交能力、語言發展和大小肌肉協調。這是孩子正式入讀幼穚園前的重要準備階段。",
+        type: "text"
+      },
+      {
+        title: "Playgroup 的好處",
+        content: "",
+        type: "checklist",
+        items: [
+          "社交發展：學習與同齡孩子互動、分享和輪流",
+          "語言刺激：透過兒歌、故事和遊戲提升語言能力",
+          "感官探索：透過不同材質和活動刺激感官發展",
+          "分離焦慮減輕：漸進式適應離開家長的環境",
+          "幼穚園面試準備：提前適應小組活動形式"
+        ]
+      },
+      {
+        title: "何時開始 Playgroup？",
+        content: "",
+        type: "table",
+        tableData: {
+          headers: ["年齡", "建議活動", "重點"],
+          rows: [
+            ["6-12 個月", "親子遊戲班", "家長全程陪同，專注感官刺激"],
+            ["1-2 歲", "初階 Playgroup", "開始學習簡單指令和組別活動"],
+            ["2-3 歲", "進階 Playgroup", "準備入讀 PN 或 K1，學習獨立"]
+          ]
+        }
+      },
+      {
+        title: "如何選擇 Playgroup？",
+        content: "",
+        type: "tips",
+        items: [
+          "師生比例：理想比例為 1:4 至 1:6，確保每個孩子得到足夠關注",
+          "環境安全：檢查場地是否有軟墊、角位保護、清潔衛生",
+          "課程內容：是否包含音樂、美術、體能、語言等多元活動",
+          "地點交通：選擇離家近的地點，減少孩子舒適度下降",
+          "試堂體驗：大部分機構提供試堂，先觀察孩子反應"
+        ]
+      },
+      {
+        title: "Playgroup 類型比較",
+        content: "",
+        type: "table",
+        tableData: {
+          headers: ["類型", "特點", "學費參考"],
+          rows: [
+            ["幼穚園附屬", "可認識學校環境，有助入學申請", "$800-2,000/月"],
+            ["私人機構", "課程多元化，時間彈性大", "$1,500-4,000/月"],
+            ["國際 Playgroup", "英語沉浸環境，價格較高", "$3,000-8,000/月"],
+            ["社區中心", "價格實惠，資源較少", "$200-800/月"]
+          ]
+        }
+      },
+      {
+        title: "熱門 Playgroup 推薦",
+        content: "以下是香港家長熟悉的優質 Playgroup 機構：",
+        type: "checklist",
+        items: [
+          "Gymboree Play & Music - 國際品牌，專注音樂和運動發展",
+          "My Gym - 美式體能課程，強調大肌肉發展",
+          "Spring Learning - 雙語教學，課程全面",
+          "Mighty Oaks - 英式教學，重視社交情緒",
+          "各區幼穚園附屬 Playgroup - 可提前熟悉學校環境"
+        ]
+      },
+      {
+        title: "報讀 Playgroup 前的準備",
+        content: "",
+        type: "tips",
+        items: [
+          "建立規律作息：讓孩子適應固定時間活動",
+          "練習分離：從短時間開始，漸進式延長",
+          "培養自理能力：如自己嗝水、整理物品",
+          "多與其他孩子接觸：參加社區活動、去公園玩耍",
+          "準備必需物品：尿片、毛巾、水壺、備用衣物"
+        ]
+      },
+      {
+        title: "Playgroup 與幼穚園入學的關係",
+        content: "報讀幼穚園附屬的 Playgroup 可以讓孩子提前適應學校環境，並讓老師認識孩子。部分幼穚園會優先取錄 Playgroup 學生，但這並非必然。最重要的是讓孩子在適合的環境中快樂學習。",
+        type: "warning",
+        items: [
+          "不是所有幼穚園都會優先取錄 Playgroup 學生",
+          "孩子的面試表現仍然是最重要的因素",
+          "選擇適合孩子的 Playgroup，而非只看升學前景"
+        ]
+      }
+    ],
+    relatedGuides: [
+      { id: "kindergarten-newbie", title: "新手媽媽幼穚園攻略" },
+      { id: "dss-private-interview", title: "直資私立小學面試攻略" }
+    ]
+  },
   "international-school": {
     title: "國際學校入學指南",
     subtitle: "開啟國際教育之路",

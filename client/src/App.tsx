@@ -13,6 +13,8 @@ import Favorites from "./pages/Favorites";
 import Search from "./pages/Search";
 import Guides from "./pages/Guides";
 import GuideDetail from "./pages/GuideDetail";
+import TuitionCalculator from "./pages/TuitionCalculator";
+import PremiumServices from "./pages/PremiumServices";
 
 function Router() {
   return (
@@ -25,6 +27,8 @@ function Router() {
       <Route path="/search" component={Search} />
       <Route path="/guides" component={Guides} />
       <Route path="/guides/:id" component={GuideDetail} />
+      <Route path="/tools/tuition-calculator" component={TuitionCalculator} />
+      <Route path="/premium-services" component={PremiumServices} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

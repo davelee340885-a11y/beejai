@@ -11,14 +11,28 @@ import {
   BookOpen,
   Users,
   Clock,
-  Target
+  Target,
+  Gamepad2
 } from "lucide-react";
 
 // 攻略分類數據
 const guideCategories = [
   {
+    id: "playgroup-guide",
+    title: "Playgroup 推薦第一步策劃",
+    subtitle: "孩子社交學習的起點",
+    description: "0-3 歲孩子的 Playgroup 如何選擇？了解不同類型的 Playgroup、最佳開始時間、熱門機構推薦，為孩子的幼穚園入學做好準備。",
+    icon: Gamepad2,
+    color: "bg-lime-500",
+    lightColor: "bg-lime-50",
+    borderColor: "border-lime-200",
+    tags: ["機構推薦", "年齡指南", "學費參考"],
+    readTime: "12 分鐘",
+    targetAudience: "0-3 歲孩子的家長"
+  },
+  {
     id: "kindergarten-newbie",
-    title: "新手媽媽幼稚園攻略",
+    title: "新手媽媽幼穚園攻略",
     subtitle: "從零開始的選校指南",
     description: "首次為子女選擇幼稚園？這份攻略涵蓋選校五大要點、K1 入學時間表、面試形式及常見問題，助你輕鬆應對。",
     icon: Baby,

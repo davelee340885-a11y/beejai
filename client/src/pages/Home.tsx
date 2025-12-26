@@ -26,7 +26,12 @@ import {
   Filter,
   Baby,
   BookOpenCheck,
-  ArrowRight
+  ArrowRight,
+  Crown,
+  Calculator,
+  PenTool,
+  FileText,
+  Video
 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -352,6 +357,109 @@ export default function Home() {
                 </Button>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 有用工具區塊 */}
+      <section className="py-10 bg-white">
+        <div className="container">
+          <SectionHeader title="有用工具" href="/tools/tuition-calculator" icon={Calculator} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Link href="/tools/tuition-calculator">
+              <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer border-2 border-amber-200 bg-gradient-to-br from-amber-50 to-white group">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-2xl bg-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Calculator className="h-7 w-7 text-gray-900" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">學費計算機</h3>
+                    <p className="text-sm text-gray-500 font-light">估算子女教育開支</p>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+            <Link href="/guides">
+              <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-white group">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-2xl bg-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <BookOpen className="h-7 w-7 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">升學攻略</h3>
+                    <p className="text-sm text-gray-500 font-light">7 個專題攻略指南</p>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+            <Link href="/search">
+              <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-white group">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-2xl bg-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Search className="h-7 w-7 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">進階搜尋</h3>
+                    <p className="text-sm text-gray-500 font-light">12+ 維度篩選學校</p>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 升級服務區塊 - 顧問廣告位 */}
+      <section className="py-12 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
+        {/* 裝飾元素 */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute top-10 left-10 w-32 h-32 bg-amber-400/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-10 right-10 w-40 h-40 bg-amber-400/20 rounded-full blur-3xl" />
+        </div>
+        
+        <div className="container relative">
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <div className="w-12 h-12 rounded-xl bg-amber-400 flex items-center justify-center">
+              <Crown className="h-6 w-6 text-gray-900" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-white">升級服務</h2>
+              <p className="text-amber-400 text-sm">專業團隊助您入讀心儀學校</p>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { icon: Crown, title: "星級升學顧問", desc: "一對一專業諮詢", color: "from-amber-400 to-yellow-500", badge: "最受歡迎" },
+              { icon: PenTool, title: "叩門插班寫信", desc: "專業代筆服務", color: "from-blue-400 to-indigo-500", badge: null },
+              { icon: FileText, title: "Profile 設計", desc: "個人檔案製作", color: "from-purple-400 to-pink-500", badge: null },
+              { icon: Video, title: "面試真人實操", desc: "模擬面試訓練", color: "from-green-400 to-emerald-500", badge: "高需求" },
+            ].map((service, index) => (
+              <Link key={index} href="/premium-services">
+                <Card className="p-5 bg-white/10 backdrop-blur border-white/20 hover:bg-white/20 transition-all cursor-pointer group relative overflow-hidden">
+                  {service.badge && (
+                    <Badge className="absolute top-3 right-3 bg-amber-400 text-gray-900 text-xs">
+                      <Star className="h-3 w-3 mr-1 fill-current" />
+                      {service.badge}
+                    </Badge>
+                  )}
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                    <service.icon className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-white mb-1">{service.title}</h3>
+                  <p className="text-sm text-gray-400">{service.desc}</p>
+                </Card>
+              </Link>
+            ))}
+          </div>
+          
+          <div className="text-center mt-8">
+            <Link href="/premium-services">
+              <Button size="lg" className="bg-amber-400 text-gray-900 hover:bg-amber-500 font-semibold px-8">
+                查看所有服務
+                <ArrowRight className="h-4 w-4 ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
