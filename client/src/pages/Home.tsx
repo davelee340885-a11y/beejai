@@ -31,10 +31,21 @@ import {
   Calculator,
   PenTool,
   FileText,
-  Video
+  Video,
+  Gamepad2,
+  Home as HomeIcon,
+  Compass,
+  Bell,
+  User,
+  Settings,
+  HelpCircle,
+  Bookmark,
+  BarChart3,
+  Zap
 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 // 香港 18 區
 const districts = [
@@ -43,473 +54,477 @@ const districts = [
   "葵青區", "荃灣區", "屯門區", "元朗區", "北區", "大埔區", "沙田區", "西貢區", "離島區"
 ];
 
-// 學校類型（用於卡片顯示）
-const schoolTypes = [
-  { id: "kindergarten", name: "幼稚園", icon: Baby, color: "bg-pink-500", description: "K1-K3" },
-  { id: "primary", name: "小學", icon: BookOpen, color: "bg-blue-500", description: "P1-P6" },
-  { id: "secondary", name: "中學", icon: Building2, color: "bg-purple-500", description: "F1-F6" },
-  { id: "international", name: "國際學校", icon: Globe, color: "bg-green-500", description: "IB/IGCSE" },
+// 左側垂直選項
+const sidebarItems = [
+  { icon: Baby, label: "幼稚園", href: "/schools?type=kindergarten", color: "text-pink-500" },
+  { icon: BookOpen, label: "小學", href: "/schools?type=primary", color: "text-blue-500" },
+  { icon: Building2, label: "中學", href: "/schools?type=secondary", color: "text-purple-500" },
+  { icon: Globe, label: "國際學校", href: "/schools?type=international", color: "text-green-500" },
+  { icon: Gamepad2, label: "Playgroup", href: "/guides/playgroup-guide", color: "text-lime-500" },
+  { icon: BookOpenCheck, label: "升學攻略", href: "/guides", color: "text-orange-500" },
+  { icon: Crown, label: "升級服務", href: "/premium-services", color: "text-amber-500" },
+  { icon: Calculator, label: "學費計算", href: "/tools/tuition-calculator", color: "text-cyan-500" },
 ];
 
-// 快速篩選選項
+// 快速篩選選項（使用圖標）
 const quickFilters = [
-  { id: "band1", label: "Band 1 學校", icon: Award, href: "/schools?band=1" },
-  { id: "dss", label: "直資學校", icon: School, href: "/schools?category=dss" },
-  { id: "aided", label: "資助學校", icon: Users, href: "/schools?category=aided" },
-  { id: "private", label: "私立學校", icon: DollarSign, href: "/schools?category=private" },
-  { id: "english", label: "英文授課", icon: Languages, href: "/schools?language=english" },
-  { id: "chinese", label: "中文授課", icon: Languages, href: "/schools?language=chinese" },
-  { id: "boys", label: "男校", icon: Users, href: "/schools?gender=boys" },
-  { id: "girls", label: "女校", icon: Users, href: "/schools?gender=girls" },
-  { id: "coed", label: "男女校", icon: Users, href: "/schools?gender=coed" },
-  { id: "christian", label: "基督教學校", icon: Church, href: "/schools?religion=christian" },
-  { id: "catholic", label: "天主教學校", icon: Church, href: "/schools?religion=catholic" },
+  { id: "band1", label: "Band 1", icon: Award, href: "/schools?band=1" },
+  { id: "dss", label: "直資", icon: School, href: "/schools?category=dss" },
+  { id: "aided", label: "資助", icon: Users, href: "/schools?category=aided" },
+  { id: "private", label: "私立", icon: DollarSign, href: "/schools?category=private" },
+  { id: "english", label: "英文", icon: Languages, href: "/schools?language=english" },
+  { id: "chinese", label: "中文", icon: Languages, href: "/schools?language=chinese" },
+  { id: "christian", label: "基督教", icon: Church, href: "/schools?religion=christian" },
+  { id: "catholic", label: "天主教", icon: Church, href: "/schools?religion=catholic" },
   { id: "free", label: "免學費", icon: DollarSign, href: "/schools?tuitionMax=0" },
 ];
 
 // 升學階段
 const admissionStages = [
-  { id: "k1", label: "K1 入學", icon: Baby, href: "/schools?type=kindergarten&grade=k1" },
-  { id: "p1", label: "小一入學", icon: BookOpen, href: "/schools?type=primary&grade=p1" },
-  { id: "s1", label: "中一入學", icon: Building2, href: "/schools?type=secondary&grade=s1" },
-  { id: "transfer", label: "插班申請", icon: BookOpenCheck, href: "/schools?admission=transfer" },
+  { id: "k1", label: "K1", icon: Baby, href: "/schools?type=kindergarten&grade=k1" },
+  { id: "p1", label: "小一", icon: BookOpen, href: "/schools?type=primary&grade=p1" },
+  { id: "s1", label: "中一", icon: Building2, href: "/schools?type=secondary&grade=s1" },
+  { id: "transfer", label: "插班", icon: BookOpenCheck, href: "/schools?admission=transfer" },
+];
+
+// 升級服務
+const premiumServices = [
+  { icon: Crown, title: "升學顧問", color: "from-amber-400 to-yellow-500", badge: "熱門" },
+  { icon: PenTool, title: "代寫信件", color: "from-blue-400 to-indigo-500", badge: null },
+  { icon: FileText, title: "Profile", color: "from-purple-400 to-pink-500", badge: null },
+  { icon: Video, title: "模擬面試", color: "from-green-400 to-emerald-500", badge: "高需求" },
 ];
 
 // 模擬熱門學校數據
 const mockPopularSchools = [
-  { id: 1, name: "聖保羅男女中學附屬小學", type: "primary", district: "南區", rating: 4.9, image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=300&fit=crop" },
-  { id: 2, name: "拔萃女小學", type: "primary", district: "油尖旺區", rating: 4.8, image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=300&fit=crop" },
-  { id: 3, name: "喇沙小學", type: "primary", district: "九龍城區", rating: 4.8, image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=300&fit=crop" },
-  { id: 4, name: "聖公會聖彼得小學", type: "primary", district: "中西區", rating: 4.7, image: "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=400&h=300&fit=crop" },
-  { id: 5, name: "瑪利諾修院學校（小學部）", type: "primary", district: "九龍城區", rating: 4.7, image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400&h=300&fit=crop" },
-  { id: 6, name: "德望學校（小學部）", type: "primary", district: "黃大仙區", rating: 4.6, image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=300&fit=crop" },
+  { id: 1, name: "聖保羅男女中學附屬小學", type: "primary", district: "南區", rating: 4.9 },
+  { id: 2, name: "拔萃女小學", type: "primary", district: "油尖旺區", rating: 4.8 },
+  { id: 3, name: "喇沙小學", type: "primary", district: "九龍城區", rating: 4.8 },
+  { id: 4, name: "聖公會聖彼得小學", type: "primary", district: "中西區", rating: 4.7 },
 ];
 
 // 模擬即將截止申請
 const mockUpcomingDeadlines = [
-  { id: 1, schoolName: "德望學校（小學部）", deadline: new Date("2025-01-15"), type: "primary", daysLeft: 22 },
-  { id: 2, schoolName: "聖保祿學校（小學部）", deadline: new Date("2025-01-20"), type: "primary", daysLeft: 27 },
-  { id: 3, schoolName: "拔萃男書院附屬小學", deadline: new Date("2025-01-25"), type: "primary", daysLeft: 32 },
-  { id: 4, schoolName: "英華小學", deadline: new Date("2025-02-01"), type: "primary", daysLeft: 39 },
-  { id: 5, schoolName: "協恩中學附屬小學", deadline: new Date("2025-02-10"), type: "primary", daysLeft: 48 },
+  { id: 1, schoolName: "德望學校（小學部）", daysLeft: 22 },
+  { id: 2, schoolName: "聖保祿學校（小學部）", daysLeft: 27 },
+  { id: 3, schoolName: "拔萃男書院附屬小學", daysLeft: 32 },
 ];
-
-// 模擬最新入學消息
-const mockLatestNews = [
-  { id: 1, title: "2025-26 年度小一入學申請現已開始", school: "聖保羅男女中學附屬小學", date: "2024-12-20" },
-  { id: 2, title: "幼稚園 K1 入學簡介會", school: "維多利亞幼稚園", date: "2024-12-19" },
-  { id: 3, title: "中一自行分配學位申請須知", school: "皇仁書院", date: "2024-12-18" },
-  { id: 4, title: "國際學校入學評估日期公佈", school: "漢基國際學校", date: "2024-12-17" },
-  { id: 5, title: "直資小學聯合招生日", school: "多間直資小學", date: "2024-12-16" },
-];
-
-function SchoolCard({ school }: { school: typeof mockPopularSchools[0] }) {
-  const typeConfig = schoolTypes.find(t => t.id === school.type);
-  
-  return (
-    <Link href={`/school/${school.id}`}>
-      <Card className="w-[280px] overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-xl hover:-translate-y-1 group flex-shrink-0 border border-gray-100 shadow-md bg-white">
-        <div className="relative h-40 overflow-hidden">
-          <img 
-            src={school.image} 
-            alt={school.name}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-          />
-          <div className="absolute top-2 right-2">
-            <Button variant="ghost" size="icon" className="bg-white/90 hover:bg-amber-400 hover:text-gray-900 shadow-sm" onClick={(e) => e.preventDefault()}>
-              <Heart className="h-4 w-4" />
-            </Button>
-          </div>
-          <div className="absolute bottom-2 left-2">
-            <Badge className={`${typeConfig?.color} text-white`}>
-              {typeConfig?.name}
-            </Badge>
-          </div>
-        </div>
-        <CardContent className="p-4 bg-white">
-          <h3 className="font-medium text-base mb-2 line-clamp-2 text-gray-900">{school.name}</h3>
-          <div className="flex items-center justify-between text-sm text-gray-500">
-            <span className="flex items-center gap-1 font-light">
-              <MapPin className="h-3 w-3" />
-              {school.district}
-            </span>
-            <span className="flex items-center gap-1 text-amber-500">
-              <Star className="h-3 w-3 fill-current" />
-              {school.rating}
-            </span>
-          </div>
-        </CardContent>
-      </Card>
-    </Link>
-  );
-}
-
-function DeadlineCard({ item }: { item: typeof mockUpcomingDeadlines[0] }) {
-  const urgencyClass = item.daysLeft <= 7 ? "bg-red-500 text-white" : 
-                       item.daysLeft <= 14 ? "bg-orange-500 text-white" : "bg-amber-400 text-gray-900";
-  
-  return (
-    <Link href={`/school/${item.id}`}>
-      <div className="w-[300px] p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow cursor-pointer flex-shrink-0 border border-amber-200">
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex-1">
-            <h4 className="font-medium text-sm line-clamp-2 text-gray-900">{item.schoolName}</h4>
-          </div>
-          <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium ${urgencyClass}`}>
-            <Clock className="h-3 w-3" />
-            {item.daysLeft} 天
-          </span>
-        </div>
-        <div className="flex items-center gap-2 text-xs text-gray-500 font-light">
-          <Calendar className="h-3 w-3" />
-          截止日期：{item.deadline.toLocaleDateString('zh-HK')}
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-function NewsCard({ item }: { item: typeof mockLatestNews[0] }) {
-  return (
-    <div className="w-[320px] p-4 bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow cursor-pointer flex-shrink-0 border border-amber-200">
-      <Badge className="mb-2 text-xs font-medium bg-amber-400 text-gray-900 hover:bg-amber-500">{item.school}</Badge>
-      <h4 className="font-medium text-sm mb-2 line-clamp-2 text-gray-900">{item.title}</h4>
-      <p className="text-xs text-gray-500 font-light">{item.date}</p>
-    </div>
-  );
-}
-
-function SectionHeader({ title, href, icon: Icon }: { title: string; href: string; icon?: any }) {
-  return (
-    <div className="flex items-center justify-between mb-5">
-      <h2 className="text-xl font-semibold flex items-center gap-2 text-gray-900">
-        {Icon && <Icon className="h-5 w-5 text-amber-500" />}
-        {title}
-      </h2>
-      <Link href={href}>
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          className="font-light text-gray-600 hover:text-gray-900 hover:bg-amber-50"
-        >
-          查看更多 <ChevronRight className="h-4 w-4 ml-1" />
-        </Button>
-      </Link>
-    </div>
-  );
-}
 
 export default function Home() {
   const { user } = useAuth();
   
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section - 黃色 Banner */}
-      <section className="relative bg-amber-400 py-10 lg:py-12">
-        <div className="container">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-white text-gray-900 px-4 py-1.5 rounded-full text-sm font-medium mb-4 shadow-sm">
-              <Sparkles className="h-4 w-4 text-amber-500" />
-              香港最全面的升學資訊平台
+    <div className="min-h-screen bg-white flex">
+      {/* 左側垂直選項欄 */}
+      <aside className="hidden lg:flex flex-col w-16 bg-gray-50 border-r border-gray-100 py-4 sticky top-16 h-[calc(100vh-4rem)]">
+        {sidebarItems.map((item, index) => (
+          <Tooltip key={index}>
+            <TooltipTrigger asChild>
+              <Link href={item.href}>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className={`w-12 h-12 mx-auto mb-1 hover:bg-amber-50 ${item.color}`}
+                >
+                  <item.icon className="h-5 w-5" />
+                </Button>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">
+              <p>{item.label}</p>
+            </TooltipContent>
+          </Tooltip>
+        ))}
+        
+        <div className="flex-1" />
+        
+        {/* 底部圖標 */}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link href="/search">
+              <Button variant="ghost" size="icon" className="w-12 h-12 mx-auto mb-1 text-gray-400 hover:bg-amber-50 hover:text-amber-500">
+                <Search className="h-5 w-5" />
+              </Button>
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent side="right">
+            <p>進階搜尋</p>
+          </TooltipContent>
+        </Tooltip>
+        
+        {user && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link href="/favorites">
+                <Button variant="ghost" size="icon" className="w-12 h-12 mx-auto mb-1 text-gray-400 hover:bg-amber-50 hover:text-amber-500">
+                  <Bookmark className="h-5 w-5" />
+                </Button>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">
+              <p>收藏學校</p>
+            </TooltipContent>
+          </Tooltip>
+        )}
+      </aside>
+
+      {/* 主內容區 */}
+      <main className="flex-1">
+        {/* Hero Section - 更緊湊 */}
+        <section className="bg-amber-400 py-6 lg:py-8">
+          <div className="container max-w-5xl">
+            {/* 標題和統計 */}
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <Badge className="mb-2 bg-white/90 text-amber-700 hover:bg-white text-xs">
+                  <Sparkles className="h-3 w-3 mr-1" />
+                  香港最全面的升學資訊平台
+                </Badge>
+                <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
+                  輕鬆掌握全港 <span className="bg-white px-2 py-0.5 rounded">2000+</span> 學校入學資訊
+                </h1>
+              </div>
+              <div className="hidden md:flex gap-4">
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-gray-900">2000+</p>
+                  <p className="text-xs text-gray-700">學校資料</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-gray-900">18</p>
+                  <p className="text-xs text-gray-700">香港地區</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-gray-900">實時</p>
+                  <p className="text-xs text-gray-700">入學資訊</p>
+                </div>
+              </div>
             </div>
-            
-            <h1 className="text-2xl lg:text-4xl font-bold mb-3 text-gray-900">
-              輕鬆掌握全港 <span className="bg-white px-3 py-1 rounded-lg shadow-sm">2000+</span> 學校入學資訊
-            </h1>
-            
-            <p className="text-base lg:text-lg text-gray-800 mb-6 font-light">
-              一站式搜尋幼稚園、小學、中學及國際學校，追蹤申請截止日期，規劃升學之路
-            </p>
-            
-            {/* Search Bar */}
-            <div className="relative max-w-xl mx-auto mb-6">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <Input 
-                placeholder="搜尋學校名稱、地區或關鍵字..."
-                className="pl-12 pr-4 h-12 text-base rounded-full border-2 border-white focus:border-gray-900 font-light bg-white shadow-lg"
-              />
-              <Link href="/search">
-                <Button className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-full px-5 h-9 font-medium text-sm bg-gray-900 hover:bg-gray-800 text-white">
+
+            {/* 搜尋欄 */}
+            <div className="relative mb-4">
+              <div className="flex bg-white rounded-full shadow-lg overflow-hidden">
+                <div className="flex-1 flex items-center px-4">
+                  <Search className="h-4 w-4 text-gray-400 mr-2" />
+                  <Input 
+                    type="text" 
+                    placeholder="搜尋學校名稱、地區或關鍵字..." 
+                    className="border-0 focus-visible:ring-0 text-sm h-10"
+                  />
+                </div>
+                <Button className="rounded-none rounded-r-full px-6 h-10 bg-gray-900 hover:bg-gray-800 text-white text-sm">
                   搜尋
+                </Button>
+              </div>
+            </div>
+
+            {/* 升學階段 + 快速篩選 - 合併為一行 */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs text-gray-700 font-medium">升學階段:</span>
+              {admissionStages.map((stage) => (
+                <Link key={stage.id} href={stage.href}>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="h-7 px-3 bg-white/90 border-gray-200 hover:bg-white hover:border-amber-400 text-xs"
+                  >
+                    <stage.icon className="h-3 w-3 mr-1" />
+                    {stage.label}
+                  </Button>
+                </Link>
+              ))}
+              
+              <span className="text-gray-300 mx-1">|</span>
+              
+              <span className="text-xs text-gray-700 font-medium">快速篩選:</span>
+              {quickFilters.slice(0, 6).map((filter) => (
+                <Link key={filter.id} href={filter.href}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        className="h-7 px-2 bg-white/90 border-gray-200 hover:bg-white hover:border-amber-400 text-xs"
+                      >
+                        <filter.icon className="h-3 w-3 mr-1" />
+                        {filter.label}
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{filter.label}學校</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </Link>
+              ))}
+              <Link href="/search">
+                <Button variant="ghost" size="sm" className="h-7 px-2 text-gray-700 hover:text-gray-900 text-xs">
+                  更多 <ChevronRight className="h-3 w-3" />
                 </Button>
               </Link>
             </div>
+          </div>
+        </section>
 
-            {/* 升學階段 */}
-            <div className="mb-6">
-              <p className="text-xs text-gray-700 mb-3 font-medium">升學階段</p>
-              <div className="flex justify-center gap-2 flex-wrap">
-                {admissionStages.map((stage) => (
-                  <Link key={stage.id} href={stage.href}>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      className="bg-white border-2 border-white text-gray-900 hover:bg-gray-900 hover:text-white hover:border-gray-900 font-medium text-xs h-8 shadow-md"
-                    >
-                      <stage.icon className="h-3.5 w-3.5 mr-1.5" />
-                      {stage.label}
-                    </Button>
+        {/* 升級服務區塊 - 緊湊版 */}
+        <section className="py-4 bg-gray-900">
+          <div className="container max-w-5xl">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Crown className="h-5 w-5 text-amber-400" />
+                <span className="text-white font-medium text-sm">升級服務</span>
+                <span className="text-gray-400 text-xs">專業團隊助您入讀心儀學校</span>
+              </div>
+              <div className="flex gap-2">
+                {premiumServices.map((service, index) => (
+                  <Link key={index} href="/premium-services">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="relative">
+                          <Button 
+                            size="sm"
+                            className={`h-8 px-3 bg-gradient-to-r ${service.color} text-white hover:opacity-90 text-xs`}
+                          >
+                            <service.icon className="h-3 w-3 mr-1" />
+                            {service.title}
+                          </Button>
+                          {service.badge && (
+                            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-1 rounded">
+                              {service.badge}
+                            </span>
+                          )}
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{service.title}服務</p>
+                      </TooltipContent>
+                    </Tooltip>
                   </Link>
                 ))}
               </div>
             </div>
-
-            {/* Quick Stats */}
-            <div className="flex justify-center gap-6 text-sm">
-              <div className="text-center bg-white px-5 py-3 rounded-xl shadow-md">
-                <p className="text-2xl font-bold text-amber-500">2000+</p>
-                <p className="font-light text-xs text-gray-600">學校資料</p>
-              </div>
-              <div className="text-center bg-white px-5 py-3 rounded-xl shadow-md">
-                <p className="text-2xl font-bold text-amber-500">18</p>
-                <p className="font-light text-xs text-gray-600">香港地區</p>
-              </div>
-              <div className="text-center bg-white px-5 py-3 rounded-xl shadow-md">
-                <p className="text-2xl font-bold text-amber-500">實時</p>
-                <p className="font-light text-xs text-gray-600">入學資訊</p>
-              </div>
-            </div>
           </div>
-        </div>
-        
-        {/* 波浪分隔線 */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-            <path d="M0 60V30C240 50 480 10 720 30C960 50 1200 10 1440 30V60H0Z" fill="white"/>
-          </svg>
-        </div>
-      </section>
+        </section>
 
-      {/* 快速篩選 - 淺黃色底 */}
-      <section className="bg-amber-50 py-6 border-b border-amber-100">
-        <div className="container">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Filter className="h-4 w-4 text-amber-600" />
-            <span className="text-sm font-semibold text-gray-900">快速篩選</span>
-            <span className="text-xs text-gray-500 font-light">— 一鍵找到合適學校</span>
-          </div>
-          <div className="flex flex-wrap justify-center gap-2">
-            {quickFilters.map((filter) => (
-              <Link key={filter.id} href={filter.href}>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  className="font-light border-amber-300 text-gray-700 hover:bg-amber-400 hover:text-gray-900 hover:border-amber-400 text-xs h-7 px-3 bg-white"
-                >
-                  <filter.icon className="h-3.5 w-3.5 mr-1.5 text-amber-600" />
-                  {filter.label}
-                </Button>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+        {/* 主要內容區 - 三欄佈局 */}
+        <section className="py-6 bg-white">
+          <div className="container max-w-5xl">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              
+              {/* 左欄：熱門學校 */}
+              <div className="lg:col-span-2">
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-base font-semibold flex items-center gap-2 text-gray-900">
+                    <TrendingUp className="h-4 w-4 text-amber-500" />
+                    熱門學校
+                  </h2>
+                  <Link href="/schools">
+                    <Button variant="ghost" size="sm" className="text-xs text-gray-500 hover:text-gray-900 h-7">
+                      查看更多 <ChevronRight className="h-3 w-3 ml-1" />
+                    </Button>
+                  </Link>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-3">
+                  {mockPopularSchools.map((school) => (
+                    <Link key={school.id} href={`/school/${school.id}`}>
+                      <Card className="p-3 hover:shadow-md transition-shadow cursor-pointer border border-gray-100 group">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-medium text-sm text-gray-900 truncate group-hover:text-amber-600">
+                              {school.name}
+                            </h3>
+                            <div className="flex items-center gap-2 mt-1">
+                              <span className="text-xs text-gray-500 flex items-center">
+                                <MapPin className="h-3 w-3 mr-0.5" />
+                                {school.district}
+                              </span>
+                              <span className="text-xs text-amber-500 flex items-center">
+                                <Star className="h-3 w-3 mr-0.5 fill-current" />
+                                {school.rating}
+                              </span>
+                            </div>
+                          </div>
+                          <Button variant="ghost" size="icon" className="h-7 w-7 text-gray-300 hover:text-red-500">
+                            <Heart className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
 
-      {/* Upcoming Deadlines - 白色底 */}
-      <section className="py-10 bg-white">
-        <div className="container">
-          <SectionHeader title="即將截止申請" href="/schools" icon={Clock} />
-          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-            {mockUpcomingDeadlines.map((item) => (
-              <DeadlineCard key={item.id} item={item} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Popular Schools - 淺黃色底 */}
-      <section className="py-10 bg-amber-50">
-        <div className="container">
-          <SectionHeader title="熱門學校" href="/schools?popular=true" icon={TrendingUp} />
-          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-            {mockPopularSchools.map((school) => (
-              <SchoolCard key={school.id} school={school} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Latest News - 白色底 */}
-      <section className="py-10 bg-white">
-        <div className="container">
-          <SectionHeader title="最新入學消息" href="/schools" icon={Calendar} />
-          <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-            {mockLatestNews.map((item) => (
-              <NewsCard key={item.id} item={item} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Browse by District - 淺黃色底 */}
-      <section className="py-10 bg-amber-50">
-        <div className="container">
-          <SectionHeader title="按地區瀏覽" href="/search" icon={MapPin} />
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2">
-            {districts.map((district) => (
-              <Link key={district} href={`/schools?district=${district}`}>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  className="w-full justify-center border-amber-200 bg-white hover:border-amber-400 hover:bg-amber-400 hover:text-gray-900 font-light text-xs h-8 text-gray-700"
-                >
-                  {district}
-                </Button>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 有用工具區塊 */}
-      <section className="py-10 bg-white">
-        <div className="container">
-          <SectionHeader title="有用工具" href="/tools/tuition-calculator" icon={Calculator} />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Link href="/tools/tuition-calculator">
-              <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer border-2 border-amber-200 bg-gradient-to-br from-amber-50 to-white group">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Calculator className="h-7 w-7 text-gray-900" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">學費計算機</h3>
-                    <p className="text-sm text-gray-500 font-light">估算子女教育開支</p>
+                {/* 有用工具 - 橫向排列 */}
+                <div className="mt-4">
+                  <h2 className="text-base font-semibold flex items-center gap-2 text-gray-900 mb-3">
+                    <Zap className="h-4 w-4 text-amber-500" />
+                    有用工具
+                  </h2>
+                  <div className="flex gap-3">
+                    <Link href="/tools/tuition-calculator" className="flex-1">
+                      <Card className="p-3 hover:shadow-md transition-shadow cursor-pointer border-2 border-amber-200 bg-amber-50 group">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-xl bg-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <Calculator className="h-5 w-5 text-gray-900" />
+                          </div>
+                          <div>
+                            <h3 className="font-medium text-sm text-gray-900">學費計算機</h3>
+                            <p className="text-xs text-gray-500">估算教育開支</p>
+                          </div>
+                        </div>
+                      </Card>
+                    </Link>
+                    <Link href="/guides" className="flex-1">
+                      <Card className="p-3 hover:shadow-md transition-shadow cursor-pointer border-2 border-blue-200 bg-blue-50 group">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-xl bg-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <BookOpen className="h-5 w-5 text-white" />
+                          </div>
+                          <div>
+                            <h3 className="font-medium text-sm text-gray-900">升學攻略</h3>
+                            <p className="text-xs text-gray-500">7 個專題指南</p>
+                          </div>
+                        </div>
+                      </Card>
+                    </Link>
+                    <Link href="/search" className="flex-1">
+                      <Card className="p-3 hover:shadow-md transition-shadow cursor-pointer border-2 border-purple-200 bg-purple-50 group">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-xl bg-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <Filter className="h-5 w-5 text-white" />
+                          </div>
+                          <div>
+                            <h3 className="font-medium text-sm text-gray-900">進階搜尋</h3>
+                            <p className="text-xs text-gray-500">12+ 維度篩選</p>
+                          </div>
+                        </div>
+                      </Card>
+                    </Link>
                   </div>
                 </div>
-              </Card>
-            </Link>
-            <Link href="/guides">
-              <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-white group">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <BookOpen className="h-7 w-7 text-white" />
+              </div>
+
+              {/* 右欄：即將截止 + 最新消息 */}
+              <div className="space-y-4">
+                {/* 即將截止申請 */}
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <h2 className="text-base font-semibold flex items-center gap-2 text-gray-900">
+                      <Clock className="h-4 w-4 text-red-500" />
+                      即將截止
+                    </h2>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">升學攻略</h3>
-                    <p className="text-sm text-gray-500 font-light">7 個專題攻略指南</p>
+                  <div className="space-y-2">
+                    {mockUpcomingDeadlines.map((item) => (
+                      <Link key={item.id} href={`/school/${item.id}`}>
+                        <Card className="p-3 hover:shadow-md transition-shadow cursor-pointer border border-gray-100">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm text-gray-900 truncate flex-1">{item.schoolName}</span>
+                            <Badge className={`ml-2 text-xs ${item.daysLeft <= 7 ? 'bg-red-500' : item.daysLeft <= 14 ? 'bg-orange-500' : 'bg-amber-400 text-gray-900'}`}>
+                              {item.daysLeft}天
+                            </Badge>
+                          </div>
+                        </Card>
+                      </Link>
+                    ))}
                   </div>
                 </div>
-              </Card>
-            </Link>
-            <Link href="/search">
-              <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-white group">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Search className="h-7 w-7 text-white" />
+
+                {/* 攻略推薦 */}
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <h2 className="text-base font-semibold flex items-center gap-2 text-gray-900">
+                      <BookOpenCheck className="h-4 w-4 text-orange-500" />
+                      攻略推薦
+                    </h2>
+                    <Link href="/guides">
+                      <Button variant="ghost" size="sm" className="text-xs text-gray-500 hover:text-gray-900 h-7">
+                        全部 <ChevronRight className="h-3 w-3 ml-1" />
+                      </Button>
+                    </Link>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">進階搜尋</h3>
-                    <p className="text-sm text-gray-500 font-light">12+ 維度篩選學校</p>
+                  <div className="space-y-2">
+                    {[
+                      { id: "playgroup-guide", title: "Playgroup 推薦", icon: Gamepad2, color: "bg-lime-500" },
+                      { id: "kindergarten-newbie", title: "新手媽媽幼稚園攻略", icon: Baby, color: "bg-pink-500" },
+                      { id: "n-wu-strategy", title: "N無人士入名校", icon: Award, color: "bg-purple-500" },
+                    ].map((guide) => (
+                      <Link key={guide.id} href={`/guides/${guide.id}`}>
+                        <Card className="p-3 hover:shadow-md transition-shadow cursor-pointer border border-gray-100 group">
+                          <div className="flex items-center gap-3">
+                            <div className={`w-8 h-8 rounded-lg ${guide.color} flex items-center justify-center`}>
+                              <guide.icon className="h-4 w-4 text-white" />
+                            </div>
+                            <span className="text-sm text-gray-900 group-hover:text-amber-600">{guide.title}</span>
+                          </div>
+                        </Card>
+                      </Link>
+                    ))}
                   </div>
                 </div>
-              </Card>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 升級服務區塊 - 顧問廣告位 */}
-      <section className="py-12 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
-        {/* 裝飾元素 */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-amber-400/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-40 h-40 bg-amber-400/20 rounded-full blur-3xl" />
-        </div>
-        
-        <div className="container relative">
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="w-12 h-12 rounded-xl bg-amber-400 flex items-center justify-center">
-              <Crown className="h-6 w-6 text-gray-900" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-white">升級服務</h2>
-              <p className="text-amber-400 text-sm">專業團隊助您入讀心儀學校</p>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { icon: Crown, title: "星級升學顧問", desc: "一對一專業諮詢", color: "from-amber-400 to-yellow-500", badge: "最受歡迎" },
-              { icon: PenTool, title: "叩門插班寫信", desc: "專業代筆服務", color: "from-blue-400 to-indigo-500", badge: null },
-              { icon: FileText, title: "Profile 設計", desc: "個人檔案製作", color: "from-purple-400 to-pink-500", badge: null },
-              { icon: Video, title: "面試真人實操", desc: "模擬面試訓練", color: "from-green-400 to-emerald-500", badge: "高需求" },
-            ].map((service, index) => (
-              <Link key={index} href="/premium-services">
-                <Card className="p-5 bg-white/10 backdrop-blur border-white/20 hover:bg-white/20 transition-all cursor-pointer group relative overflow-hidden">
-                  {service.badge && (
-                    <Badge className="absolute top-3 right-3 bg-amber-400 text-gray-900 text-xs">
-                      <Star className="h-3 w-3 mr-1 fill-current" />
-                      {service.badge}
-                    </Badge>
-                  )}
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                    <service.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <h3 className="font-semibold text-white mb-1">{service.title}</h3>
-                  <p className="text-sm text-gray-400">{service.desc}</p>
-                </Card>
-              </Link>
-            ))}
-          </div>
-          
-          <div className="text-center mt-8">
-            <Link href="/premium-services">
-              <Button size="lg" className="bg-amber-400 text-gray-900 hover:bg-amber-500 font-semibold px-8">
-                查看所有服務
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section - 黃色 Banner */}
-      {!user && (
-        <section className="py-12 bg-amber-400">
-          <div className="container">
-            <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-xl lg:text-2xl font-bold mb-3 text-gray-900">開始您的升學規劃之旅</h2>
-              <p className="text-gray-800 mb-5 font-light text-sm">
-                註冊成為會員，收藏心儀學校、追蹤申請進度、獲取最新入學資訊提醒
-              </p>
-              <div className="flex gap-3 justify-center">
-                <Button size="default" className="px-6 font-medium bg-gray-900 hover:bg-gray-800 text-white">
-                  免費註冊
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-                <Button size="default" variant="outline" className="px-6 font-medium border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white bg-transparent">
-                  了解更多
-                </Button>
               </div>
             </div>
           </div>
         </section>
-      )}
 
-      {/* Footer - 白色底配黃色點綴 */}
-      <footer className="py-8 bg-white border-t border-amber-100">
-        <div className="container">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <img 
-                src="/beejai-logo.png" 
-                alt="BeeJAI Logo" 
-                className="h-10 w-auto"
-              />
-              <div className="flex items-baseline gap-1.5">
-                <span className="font-light text-lg text-gray-900">
-                  Bee<span className="text-amber-500 font-semibold">JAI</span>
-                </span>
-                <span className="text-sm text-gray-500 font-light">Bee仔</span>
+        {/* 按地區瀏覽 - 移到最下方 */}
+        <section className="py-6 bg-gray-50 border-t border-gray-100">
+          <div className="container max-w-5xl">
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-base font-semibold flex items-center gap-2 text-gray-900">
+                <MapPin className="h-4 w-4 text-amber-500" />
+                按地區瀏覽
+              </h2>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {districts.map((district) => (
+                <Link key={district} href={`/schools?district=${district}`}>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="h-7 px-3 bg-white border-gray-200 hover:bg-amber-50 hover:border-amber-400 text-xs"
+                  >
+                    {district}
+                  </Button>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section - 僅未登入用戶顯示 */}
+        {!user && (
+          <section className="py-6 bg-amber-400">
+            <div className="container max-w-5xl">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-lg font-bold text-gray-900">開始您的升學規劃之旅</h2>
+                  <p className="text-sm text-gray-800">註冊成為會員，收藏心儀學校、追蹤申請進度</p>
+                </div>
+                <div className="flex gap-2">
+                  <Button size="sm" className="bg-gray-900 hover:bg-gray-800 text-white">
+                    免費註冊 <ArrowRight className="h-4 w-4 ml-1" />
+                  </Button>
+                </div>
               </div>
             </div>
-            <p className="text-xs text-gray-500 font-light">
-              © 2024 BeeJAI. 香港升學資訊平台
-            </p>
+          </section>
+        )}
+
+        {/* Footer - 簡潔版 */}
+        <footer className="py-4 bg-white border-t border-gray-100">
+          <div className="container max-w-5xl">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <img src="/beejai-logo.png" alt="BeeJAI Logo" className="h-8 w-auto" />
+                <span className="font-light text-sm text-gray-900">
+                  Bee<span className="text-amber-500 font-semibold">JAI</span>
+                </span>
+                <span className="text-xs text-gray-500">Bee仔</span>
+              </div>
+              <p className="text-xs text-gray-500">© 2024 BeeJAI. 香港升學資訊平台</p>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </main>
     </div>
   );
 }
