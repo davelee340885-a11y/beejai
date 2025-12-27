@@ -51,7 +51,8 @@ const mockSchoolDetail = {
   band: "1",
   linkedSchool: "聖保羅男女中學",
   tuitionFee: 63000,
-  image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&h=400&fit=crop",
+  buildingPhoto: "/school-photos/spcc-ps-building3.jpg",
+  logo: "/school-logos/spcc-ps.jpg",
   description: "聖保羅男女中學附屬小學是香港一所著名的直資小學，以優質教育和全人發展著稱。學校提供中英文並重的教學環境，培養學生的學術能力和品德修養。",
   features: ["STEM教育", "音樂培訓", "體育發展", "語言培訓", "領袖訓練"],
   admissionInfo: {
@@ -115,11 +116,25 @@ export default function SchoolDetail() {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <div className="relative h-64 md:h-80">
-        <img 
-          src={school.image} 
-          alt={school.name}
-          className="w-full h-full object-cover"
-        />
+        {school.buildingPhoto ? (
+          <img 
+            src={school.buildingPhoto} 
+            alt={`${school.name}外牆`}
+            className="w-full h-full object-cover"
+          />
+        ) : school.logo ? (
+          <div className="w-full h-full bg-gradient-to-br from-amber-50 to-amber-100 flex items-center justify-center">
+            <img 
+              src={school.logo} 
+              alt={school.name}
+              className="h-32 md:h-40 object-contain"
+            />
+          </div>
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+            <Building2 className="h-32 md:h-40 text-gray-400" />
+          </div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
         
         {/* Back Button */}
