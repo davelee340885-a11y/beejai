@@ -97,10 +97,10 @@ const premiumServices = [
 
 // 模擬熱門學校數據
 const mockPopularSchools = [
-  { id: 1, name: "聖保羅男女中學附屬小學", type: "primary", district: "南區", rating: 4.9 },
-  { id: 2, name: "拔萃女小學", type: "primary", district: "油尖旺區", rating: 4.8 },
-  { id: 3, name: "喇沙小學", type: "primary", district: "九龍城區", rating: 4.8 },
-  { id: 4, name: "聖公會聖彼得小學", type: "primary", district: "中西區", rating: 4.7 },
+  { id: 1, name: "聖保羅男女中學附屬小學", type: "primary", district: "南區", rating: 4.9, logo: "/school-logos/spcc-ps.jpg" },
+  { id: 2, name: "拔萃女小學", type: "primary", district: "油尖旺區", rating: 4.8, logo: "/school-logos/dgjs.jpg" },
+  { id: 3, name: "喇沙小學", type: "primary", district: "九龍城區", rating: 4.8, logo: "/school-logos/lasalle.jpg" },
+  { id: 4, name: "聖公會聖彼得小學", type: "primary", district: "中西區", rating: 4.7, logo: "/school-logos/spps.jpg" },
 ];
 
 // 模擬即將截止申請
@@ -342,10 +342,26 @@ export default function Home() {
                 <div className="grid grid-cols-2 gap-3">
                   {mockPopularSchools.map((school) => (
                     <Link key={school.id} href={`/school/${school.id}`}>
-                      <Card className="p-3 hover:shadow-md transition-shadow cursor-pointer border border-gray-100 group">
-                        <div className="flex items-start justify-between">
+                      <Card className="p-2.5 hover:shadow-md transition-shadow cursor-pointer border border-gray-100 group">
+                        <div className="flex items-center gap-2.5">
+                          {/* School Logo */}
+                          <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-white border border-gray-100 flex items-center justify-center">
+                            {school.logo ? (
+                              <img 
+                                src={school.logo} 
+                                alt={school.name}
+                                className="w-full h-full object-contain p-1"
+                              />
+                            ) : (
+                              <div className="w-full h-full bg-gradient-to-br from-amber-100 to-amber-200 flex items-center justify-center">
+                                <span className="text-xs font-bold text-amber-600">{school.name.substring(0, 2)}</span>
+                              </div>
+                            )}
+                          </div>
+                          
+                          {/* School Info */}
                           <div className="flex-1 min-w-0">
-                            <h3 className="font-medium text-sm text-gray-900 truncate group-hover:text-amber-600">
+                            <h3 className="font-medium text-xs text-gray-900 line-clamp-2 leading-tight group-hover:text-amber-600">
                               {school.name}
                             </h3>
                             <div className="flex items-center gap-2 mt-1">
@@ -359,8 +375,10 @@ export default function Home() {
                               </span>
                             </div>
                           </div>
-                          <Button variant="ghost" size="icon" className="h-7 w-7 text-gray-300 hover:text-red-500">
-                            <Heart className="h-4 w-4" />
+                          
+                          {/* Favorite Button */}
+                          <Button variant="ghost" size="icon" className="h-6 w-6 text-gray-300 hover:text-red-500 flex-shrink-0">
+                            <Heart className="h-3.5 w-3.5" />
                           </Button>
                         </div>
                       </Card>
