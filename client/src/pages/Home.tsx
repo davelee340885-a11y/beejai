@@ -529,12 +529,20 @@ export default function Home() {
         <footer className="py-4 bg-white border-t border-gray-100">
           <div className="container max-w-5xl">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <img src="/beejai-logo.png" alt="BeeJAI Logo" className="h-8 w-auto" />
-                <span className="font-light text-sm text-gray-900">
-                  Bee<span className="text-amber-500 font-semibold">JAI</span>
-                </span>
-                <span className="text-xs text-gray-500">Bee仔升學</span>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <img src="/beejai-logo.png" alt="BeeJAI Logo" className="h-8 w-auto" />
+                  <span className="font-light text-sm text-gray-900">
+                    Bee<span className="text-amber-500 font-semibold">JAI</span>
+                  </span>
+                  <span className="text-xs text-gray-500">Bee仔升學</span>
+                </div>
+                <Link href="/about" className="text-xs text-gray-500 hover:text-amber-500 transition-colors">
+                  關於我們
+                </Link>
+                <Link href="/pricing" className="text-xs text-gray-500 hover:text-amber-500 transition-colors">
+                  會員方案
+                </Link>
               </div>
               <p className="text-xs text-gray-500">© 2024 BeeJAI. 香港升學資訊平台</p>
             </div>
