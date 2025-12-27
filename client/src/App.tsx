@@ -15,6 +15,8 @@ import Guides from "./pages/Guides";
 import GuideDetail from "./pages/GuideDetail";
 import TuitionCalculator from "./pages/TuitionCalculator";
 import PremiumServices from "./pages/PremiumServices";
+import StarterPack from "./pages/StarterPack";
+import QuickGuide from "./pages/QuickGuide";
 
 function Router() {
   return (
@@ -29,6 +31,8 @@ function Router() {
       <Route path="/guides/:id" component={GuideDetail} />
       <Route path="/tools/tuition-calculator" component={TuitionCalculator} />
       <Route path="/premium-services" component={PremiumServices} />
+      <Route path="/starter-pack" component={StarterPack} />
+      <Route path="/quick-guide" component={QuickGuide} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

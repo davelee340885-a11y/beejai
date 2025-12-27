@@ -56,8 +56,8 @@ const districts = [
 
 // 左側垂直選項 - 工具、攻略、懶人包、新手包
 const sidebarItems = [
-  { icon: Sparkles, label: "新手包", href: "/guides/kindergarten-guide", color: "text-pink-500" },
-  { icon: Zap, label: "懶人包", href: "/guides", color: "text-amber-500" },
+  { icon: Sparkles, label: "新手包", href: "/starter-pack", color: "text-pink-500" },
+  { icon: Zap, label: "懶人包", href: "/quick-guide", color: "text-amber-500" },
   { icon: BookOpenCheck, label: "升學攻略", href: "/guides", color: "text-orange-500" },
   { icon: Gamepad2, label: "Playgroup", href: "/guides/playgroup-guide", color: "text-lime-500" },
   { icon: Crown, label: "升級顧問", href: "/premium-services", color: "text-yellow-500" },
