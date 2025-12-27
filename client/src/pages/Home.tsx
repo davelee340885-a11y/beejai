@@ -257,11 +257,25 @@ export default function Home() {
         {/* 升級服務區塊 - 緊湊版 */}
         <section className="py-4 bg-gray-900">
           <div className="container max-w-5xl">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Crown className="h-5 w-5 text-amber-400" />
-                <span className="text-white font-medium text-sm">升級服務</span>
-                <span className="text-gray-400 text-xs">專業團隊助您入讀心儀學校</span>
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <Crown className="h-5 w-5 text-amber-400" />
+                  <span className="text-white font-medium text-sm">升級服務</span>
+                  <span className="text-gray-400 text-xs">專業團隊助您入讀心儀學校</span>
+                </div>
+                {/* 內地來港專才子女攻略 - 突顯重要 */}
+                <Link href="/guides/mainland-talent">
+                  <div className="flex items-center gap-1.5 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/50 rounded-full px-3 py-1 hover:from-amber-500/30 hover:to-orange-500/30 transition-colors cursor-pointer">
+                    <div className="flex items-center gap-0.5">
+                      <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
+                      <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
+                      <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
+                    </div>
+                    <span className="text-amber-300 text-xs font-medium">內地來港專才子女攻略</span>
+                    <ChevronRight className="h-3 w-3 text-amber-400" />
+                  </div>
+                </Link>
               </div>
               <div className="flex gap-2">
                 {premiumServices.map((service, index) => (
