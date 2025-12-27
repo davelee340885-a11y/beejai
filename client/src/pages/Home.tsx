@@ -115,56 +115,46 @@ export default function Home() {
   
   return (
     <div className="min-h-screen bg-white flex">
-      {/* 左側垂直選項欄 */}
-      <aside className="hidden lg:flex flex-col w-16 bg-gray-50 border-r border-gray-100 py-4 sticky top-16 h-[calc(100vh-4rem)]">
+      {/* 左側垂直選項欄 - Hover 時展開顯示文字標籤 */}
+      <aside className="hidden lg:flex flex-col w-16 hover:w-40 bg-gray-50 border-r border-gray-100 py-4 sticky top-16 h-[calc(100vh-4rem)] transition-all duration-300 ease-in-out group/sidebar overflow-hidden">
         {sidebarItems.map((item, index) => (
-          <Tooltip key={index}>
-            <TooltipTrigger asChild>
-              <Link href={item.href}>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className={`w-12 h-12 mx-auto mb-1 hover:bg-amber-50 ${item.color}`}
-                >
-                  <item.icon className="h-5 w-5" />
-                </Button>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">
-              <p>{item.label}</p>
-            </TooltipContent>
-          </Tooltip>
+          <Link key={index} href={item.href}>
+            <div className="flex items-center mx-2 mb-1 px-2 py-2 rounded-lg hover:bg-amber-50 transition-colors cursor-pointer group">
+              <div className={`flex-shrink-0 w-8 h-8 flex items-center justify-center ${item.color}`}>
+                <item.icon className="h-5 w-5" />
+              </div>
+              <span className={`ml-3 text-sm font-medium whitespace-nowrap opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 ${item.color}`}>
+                {item.label}
+              </span>
+            </div>
+          </Link>
         ))}
         
         <div className="flex-1" />
         
         {/* 底部圖標 */}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Link href="/search">
-              <Button variant="ghost" size="icon" className="w-12 h-12 mx-auto mb-1 text-gray-400 hover:bg-amber-50 hover:text-amber-500">
-                <Search className="h-5 w-5" />
-              </Button>
-            </Link>
-          </TooltipTrigger>
-          <TooltipContent side="right">
-            <p>進階搜尋</p>
-          </TooltipContent>
-        </Tooltip>
+        <Link href="/search">
+          <div className="flex items-center mx-2 mb-1 px-2 py-2 rounded-lg hover:bg-amber-50 transition-colors cursor-pointer group">
+            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-gray-400 group-hover:text-amber-500">
+              <Search className="h-5 w-5" />
+            </div>
+            <span className="ml-3 text-sm font-medium whitespace-nowrap opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 text-gray-600">
+              進階搜尋
+            </span>
+          </div>
+        </Link>
         
         {user && (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link href="/favorites">
-                <Button variant="ghost" size="icon" className="w-12 h-12 mx-auto mb-1 text-gray-400 hover:bg-amber-50 hover:text-amber-500">
-                  <Bookmark className="h-5 w-5" />
-                </Button>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">
-              <p>收藏學校</p>
-            </TooltipContent>
-          </Tooltip>
+          <Link href="/favorites">
+            <div className="flex items-center mx-2 mb-1 px-2 py-2 rounded-lg hover:bg-amber-50 transition-colors cursor-pointer group">
+              <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-gray-400 group-hover:text-amber-500">
+                <Bookmark className="h-5 w-5" />
+              </div>
+              <span className="ml-3 text-sm font-medium whitespace-nowrap opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-300 text-gray-600">
+                收藏學校
+              </span>
+            </div>
+          </Link>
         )}
       </aside>
 
