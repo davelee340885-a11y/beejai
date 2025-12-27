@@ -114,79 +114,72 @@ export default function SchoolDetail() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <div className="relative h-64 md:h-80">
-        {school.buildingPhoto ? (
-          <img 
-            src={school.buildingPhoto} 
-            alt={`${school.name}外牆`}
-            className="w-full h-full object-cover"
-          />
-        ) : school.logo ? (
-          <div className="w-full h-full bg-gradient-to-br from-amber-50 to-amber-100 flex items-center justify-center">
-            <img 
-              src={school.logo} 
-              alt={school.name}
-              className="h-32 md:h-40 object-contain"
-            />
-          </div>
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-            <Building2 className="h-32 md:h-40 text-gray-400" />
-          </div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-        
-        {/* Back Button */}
-        <div className="absolute top-4 left-4">
-          <Link href="/schools">
-            <Button variant="secondary" size="sm" className="gap-2">
-              <ChevronLeft className="h-4 w-4" />
-              返回列表
-            </Button>
-          </Link>
-        </div>
-
-        {/* Actions */}
-        <div className="absolute top-4 right-4 flex gap-2">
-          <Button 
-            variant="secondary" 
-            size="icon"
-            onClick={handleShare}
-          >
-            <Share2 className="h-4 w-4" />
-          </Button>
-          <Button 
-            variant={isFavorite ? "default" : "secondary"}
-            size="icon"
-            onClick={handleFavorite}
-          >
-            <Heart className={`h-4 w-4 ${isFavorite ? "fill-current" : ""}`} />
-          </Button>
-        </div>
-
-        {/* School Info Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-          <div className="container">
-            <div className="flex items-start gap-4">
-              <Badge className={`${typeConfig.color} text-white`}>
-                {typeConfig.name}
-              </Badge>
-              <Badge variant="outline" className="border-white/50 text-white">
-                {school.category}
-              </Badge>
+      {/* Header Bar */}
+      <div className="bg-muted/30 border-b">
+        <div className="container py-4">
+          <div className="flex items-center justify-between mb-4">
+            <Link href="/schools">
+              <Button variant="ghost" size="sm" className="gap-2">
+                <ChevronLeft className="h-4 w-4" />
+                返回列表
+              </Button>
+            </Link>
+            <div className="flex gap-2">
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={handleShare}
+              >
+                <Share2 className="h-4 w-4" />
+              </Button>
+              <Button 
+                variant={isFavorite ? "default" : "ghost"}
+                size="icon"
+                onClick={handleFavorite}
+              >
+                <Heart className={`h-4 w-4 ${isFavorite ? "fill-current" : ""}`} />
+              </Button>
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold mt-3">{school.name}</h1>
-            <p className="text-white/80 mt-1">{school.nameEn}</p>
-            <div className="flex items-center gap-4 mt-3 text-sm">
-              <span className="flex items-center gap-1">
-                <MapPin className="h-4 w-4" />
-                {school.district}
-              </span>
-              <span className="flex items-center gap-1 text-yellow-400">
-                <Star className="h-4 w-4 fill-current" />
-                {school.rating}
-              </span>
+          </div>
+          
+          <div className="flex items-start gap-4">
+            {/* School Logo */}
+            {school.logo ? (
+              <div className="w-16 h-16 rounded-lg bg-white border flex items-center justify-center flex-shrink-0">
+                <img 
+                  src={school.logo} 
+                  alt={school.name}
+                  className="w-12 h-12 object-contain"
+                />
+              </div>
+            ) : (
+              <div className="w-16 h-16 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
+                <Building2 className="h-8 w-8 text-muted-foreground" />
+              </div>
+            )}
+            
+            {/* School Info */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-2">
+                <Badge className={`${typeConfig.color} text-white`}>
+                  {typeConfig.name}
+                </Badge>
+                <Badge variant="secondary">
+                  {school.category}
+                </Badge>
+              </div>
+              <h1 className="text-2xl md:text-3xl font-bold">{school.name}</h1>
+              <p className="text-muted-foreground mt-1">{school.nameEn}</p>
+              <div className="flex items-center gap-4 mt-2 text-sm">
+                <span className="flex items-center gap-1">
+                  <MapPin className="h-4 w-4" />
+                  {school.district}
+                </span>
+                <span className="flex items-center gap-1 text-yellow-600">
+                  <Star className="h-4 w-4 fill-current" />
+                  {school.rating}
+                </span>
+              </div>
             </div>
           </div>
         </div>
