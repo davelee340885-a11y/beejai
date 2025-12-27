@@ -276,6 +276,18 @@ export default function Home() {
                     <ChevronRight className="h-3 w-3 text-amber-400" />
                   </div>
                 </Link>
+                {/* IB課程選校攻略 - 突顯重要 */}
+                <Link href="/guides/ib-school">
+                  <div className="flex items-center gap-1.5 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 border border-blue-500/50 rounded-full px-3 py-1 hover:from-blue-500/30 hover:to-indigo-500/30 transition-colors cursor-pointer">
+                    <div className="flex items-center gap-0.5">
+                      <Star className="h-3 w-3 text-blue-400 fill-blue-400" />
+                      <Star className="h-3 w-3 text-blue-400 fill-blue-400" />
+                      <Star className="h-3 w-3 text-blue-400 fill-blue-400" />
+                    </div>
+                    <span className="text-blue-300 text-xs font-medium">IB課程選校攻略</span>
+                    <ChevronRight className="h-3 w-3 text-blue-400" />
+                  </div>
+                </Link>
               </div>
               <div className="flex gap-2">
                 {premiumServices.map((service, index) => (
