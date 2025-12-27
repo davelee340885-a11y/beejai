@@ -12,7 +12,8 @@ import {
   Users,
   Clock,
   Target,
-  Gamepad2
+  Gamepad2,
+  Award
 } from "lucide-react";
 
 // 攻略分類數據
@@ -96,6 +97,19 @@ const guideCategories = [
     targetAudience: "報讀直資私立的家長"
   },
   {
+    id: "ib-school",
+    title: "IB課程選校攻略",
+    subtitle: "全面了解國際文憑課程",
+    description: "IB 課程有什麼特色？香港有哪些 IB 學校？學費多少？一文了解 PYP、MYP、DP 課程結構、學校排名及選校要點。",
+    icon: Award,
+    color: "bg-indigo-500",
+    lightColor: "bg-indigo-50",
+    borderColor: "border-indigo-200",
+    tags: ["學校排名", "IB vs DSE", "學費參考"],
+    readTime: "18 分鐘",
+    targetAudience: "考慮 IB 課程的家長"
+  },
+  {
     id: "international-school",
     title: "國際學校入學指南",
     subtitle: "開啟國際教育之路",
@@ -140,7 +154,7 @@ export default function Guides() {
             {/* 統計數據 */}
             <div className="flex justify-center gap-8 md:gap-16">
               <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900">6+</div>
+                <div className="text-3xl font-bold text-gray-900">8+</div>
                 <div className="text-sm text-gray-600">攻略分類</div>
               </div>
               <div className="text-center">
