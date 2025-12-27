@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Navbar from "./components/Navbar";
@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Schools from "./pages/Schools";
 import SchoolDetail from "./pages/SchoolDetail";
 import Dashboard from "./pages/Dashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 import Favorites from "./pages/Favorites";
 import Search from "./pages/Search";
 import Guides from "./pages/Guides";
@@ -18,6 +19,9 @@ import PremiumServices from "./pages/PremiumServices";
 import StarterPack from "./pages/StarterPack";
 import QuickGuide from "./pages/QuickGuide";
 
+// 不顯示 Navbar 的頁面
+const noNavbarRoutes = ["/dashboard", "/admin"];
+
 function Router() {
   return (
     <Switch>
@@ -25,6 +29,7 @@ function Router() {
       <Route path="/schools" component={Schools} />
       <Route path="/school/:id" component={SchoolDetail} />
       <Route path="/dashboard" component={Dashboard} />
+      <Route path="/admin" component={AdminDashboard} />
       <Route path="/favorites" component={Favorites} />
       <Route path="/search" component={Search} />
       <Route path="/guides" component={Guides} />
@@ -41,13 +46,16 @@ function Router() {
 }
 
 function App() {
+  const [location] = useLocation();
+  const showNavbar = !noNavbarRoutes.some(route => location.startsWith(route));
+
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
           <div className="min-h-screen bg-background">
-            <Navbar />
+            {showNavbar && <Navbar />}
             <Router />
           </div>
         </TooltipProvider>

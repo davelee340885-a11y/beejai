@@ -22,7 +22,8 @@ import {
   Globe,
   FileText,
   Trophy,
-  ChevronDown
+  ChevronDown,
+  Shield
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
@@ -175,6 +176,17 @@ export default function Navbar() {
                       設定
                     </DropdownMenuItem>
                   </Link>
+                  {user.role === "admin" && (
+                    <>
+                      <DropdownMenuSeparator />
+                      <Link href="/admin">
+                        <DropdownMenuItem className="cursor-pointer text-amber-600">
+                          <Shield className="mr-2 h-4 w-4" />
+                          管理員後台
+                        </DropdownMenuItem>
+                      </Link>
+                    </>
+                  )}
                   <DropdownMenuSeparator />
                   <DropdownMenuItem 
                     className="cursor-pointer text-destructive"
