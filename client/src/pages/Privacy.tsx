@@ -77,6 +77,47 @@ export default function Privacy() {
             </CardContent>
           </Card>
 
+          {/* 1.3 第三方內容與學校資訊 */}
+          <Card>
+            <CardContent className="p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                  <Share2 className="w-5 h-5 text-amber-600" />
+                </div>
+                <h2 className="text-xl font-bold text-gray-900">1.3 第三方內容與學校資訊</h2>
+              </div>
+              <div className="space-y-3 text-gray-700">
+                <p><strong>學校資訊來源</strong></p>
+                <p>
+                  本平台展示的學校資訊主要來自以下公開渠道：
+                </p>
+                <ul className="list-disc list-inside space-y-1 ml-4">
+                  <li>香港教育局公開的學校資料庫（包括學校名稱、地址、聯絡資料等）</li>
+                  <li>學校官方網站的公開資訊</li>
+                  <li>政府公報、新聞報導和其他公開文獻</li>
+                  <li>用戶提交的資料（經驗證後）</li>
+                </ul>
+                
+                <p><strong>知識產權聲明</strong></p>
+                <p>
+                  我們尊重所有學校及第三方的知識產權。學校名稱、商標、標誌及相關內容均為各學校所有，
+                  本平台僅用於資訊識別和教育參考用途。我們按照《商標條例》和《版權條例》的「誠實做法」和「合理使用」原則使用這些內容。
+                </p>
+                
+                <p><strong>不代表官方關係</strong></p>
+                <p>
+                  本平台與任何學校無官方關係或合作關係，除非另有明確說明。展示學校資訊不代表獲得學校的背書或授權。
+                </p>
+                
+                <p className="bg-amber-50 p-3 rounded-lg">
+                  <strong>投訴與移除機制：</strong>如任何學校或版權持有人認為本平台的內容侵犯其權利或不準確，
+                  請聯繫 <a href="mailto:school-feedback@beejai.com" className="text-amber-600 hover:underline">school-feedback@beejai.com</a>，
+                  我們將在48小時內處理並移除或更正相關內容。
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* 2. 資料用途 */}
           <Card>
             <CardContent className="p-6">
