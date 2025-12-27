@@ -508,7 +508,7 @@ export default function Home() {
                 <span className="font-light text-sm text-gray-900">
                   Bee<span className="text-amber-500 font-semibold">JAI</span>
                 </span>
-                <span className="text-xs text-gray-500">Bee仔</span>
+                <span className="text-xs text-gray-500">Bee仔升學</span>
               </div>
               <p className="text-xs text-gray-500">© 2024 BeeJAI. 香港升學資訊平台</p>
             </div>

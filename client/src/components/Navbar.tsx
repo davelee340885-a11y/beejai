@@ -94,7 +94,7 @@ export default function Navbar() {
               <span className="font-light text-lg tracking-wide">
                 Bee<span className="text-primary font-medium">JAI</span>
               </span>
-              <span className="text-sm text-muted-foreground font-light">Bee仔</span>
+              <span className="text-sm text-muted-foreground font-light">Bee仔升學</span>
             </div>
           </div>
         </Link>
@@ -211,7 +211,7 @@ export default function Navbar() {
                     <span className="font-light text-xl tracking-wide">
                       Bee<span className="text-primary font-medium">JAI</span>
                     </span>
-                    <span className="text-xs text-muted-foreground font-light">Bee 仔</span>
+                    <span className="text-xs text-muted-foreground font-light">Bee仔升學</span>
                   </div>
                 </div>
                 
