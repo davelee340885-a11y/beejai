@@ -54,15 +54,15 @@ const districts = [
   "葵青區", "荃灣區", "屯門區", "元朗區", "北區", "大埔區", "沙田區", "西貢區", "離島區"
 ];
 
-// 左側垂直選項
+// 左側垂直選項 - 工具、攻略、懶人包、新手包
 const sidebarItems = [
-  { icon: Baby, label: "幼稚園", href: "/schools?type=kindergarten", color: "text-pink-500" },
-  { icon: BookOpen, label: "小學", href: "/schools?type=primary", color: "text-blue-500" },
-  { icon: Building2, label: "中學", href: "/schools?type=secondary", color: "text-purple-500" },
-  { icon: Globe, label: "國際學校", href: "/schools?type=international", color: "text-green-500" },
-  { icon: Gamepad2, label: "Playgroup", href: "/guides/playgroup-guide", color: "text-lime-500" },
+  { icon: Sparkles, label: "新手包", href: "/guides/kindergarten-guide", color: "text-pink-500" },
+  { icon: Zap, label: "懶人包", href: "/guides", color: "text-amber-500" },
   { icon: BookOpenCheck, label: "升學攻略", href: "/guides", color: "text-orange-500" },
-  { icon: Crown, label: "升級服務", href: "/premium-services", color: "text-amber-500" },
+  { icon: Gamepad2, label: "Playgroup", href: "/guides/playgroup-guide", color: "text-lime-500" },
+  { icon: Crown, label: "升級顧問", href: "/premium-services", color: "text-yellow-500" },
+  { icon: PenTool, label: "代寫信件", href: "/premium-services", color: "text-blue-500" },
+  { icon: FileText, label: "Profile", href: "/premium-services", color: "text-purple-500" },
   { icon: Calculator, label: "學費計算", href: "/tools/tuition-calculator", color: "text-cyan-500" },
 ];
 
