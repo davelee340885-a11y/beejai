@@ -23,15 +23,15 @@ const plans = [
     features: [
       { name: "學校列表瀏覽", included: true },
       { name: "學校詳情查看", included: true, limit: "每月10間" },
+      { name: "資訊搜尋功能", included: true, limit: "每月30次" },
       { name: "基本篩選功能", included: true },
       { name: "熱門學校排名", included: true },
       { name: "心儀學校收藏", included: true, limit: "最多5間" },
       { name: "申請追蹤", included: true, limit: "最多3間" },
       { name: "小朋友檔案", included: true, limit: "最多1位" },
-      { name: "基礎攻略閱讀", included: true },
-      { name: "進階攻略完整內容", included: false },
-      { name: "截止日期提醒", included: false },
+      { name: "升學攻略完整內容", included: false },
       { name: "攻略 PDF 下載", included: false },
+      { name: "截止日期提醒", included: false },
       { name: "每週升學資訊摘要", included: false },
       { name: "升級服務優惠", included: false },
     ],
@@ -49,15 +49,15 @@ const plans = [
     features: [
       { name: "學校列表瀏覽", included: true },
       { name: "學校詳情查看", included: true, limit: "無限" },
+      { name: "資訊搜尋功能", included: true, limit: "無限" },
       { name: "全部12項篩選條件", included: true },
       { name: "熱門學校排名", included: true },
       { name: "心儀學校收藏", included: true, limit: "最多30間" },
       { name: "申請追蹤", included: true, limit: "無限" },
       { name: "小朋友檔案", included: true, limit: "最多3位" },
-      { name: "基礎攻略閱讀", included: true },
-      { name: "進階攻略完整內容", included: true },
-      { name: "截止日期提醒", included: true },
+      { name: "升學攻略完整內容", included: true },
       { name: "攻略 PDF 下載", included: true },
+      { name: "截止日期提醒", included: true },
       { name: "每週升學資訊摘要", included: true },
       { name: "升級服務優惠", included: true, limit: "9折" },
     ],
@@ -75,15 +75,15 @@ const plans = [
     features: [
       { name: "學校列表瀏覽", included: true },
       { name: "學校詳情查看", included: true, limit: "無限" },
+      { name: "資訊搜尋功能", included: true, limit: "無限" },
       { name: "全部12項篩選條件", included: true },
       { name: "熱門學校排名", included: true },
       { name: "心儀學校收藏", included: true, limit: "無限" },
       { name: "申請追蹤", included: true, limit: "無限" },
       { name: "小朋友檔案", included: true, limit: "無限" },
-      { name: "基礎攻略閱讀", included: true },
-      { name: "進階攻略完整內容", included: true },
-      { name: "截止日期提醒", included: true },
+      { name: "升學攻略完整內容", included: true },
       { name: "攻略 PDF 下載", included: true },
+      { name: "截止日期提醒", included: true },
       { name: "每週升學資訊摘要", included: true },
       { name: "升級服務優惠", included: true, limit: "8折" },
     ],
@@ -333,6 +333,12 @@ export default function Pricing() {
                   <td className="py-3 px-4 text-center text-green-600 font-medium">無限</td>
                 </tr>
                 <tr className="border-b border-gray-100 hover:bg-gray-50">
+                  <td className="py-3 px-4 pl-8 text-gray-600">資訊搜尋功能</td>
+                  <td className="py-3 px-4 text-center text-amber-600">每月30次</td>
+                  <td className="py-3 px-4 text-center bg-amber-50 text-green-600 font-medium">無限</td>
+                  <td className="py-3 px-4 text-center text-green-600 font-medium">無限</td>
+                </tr>
+                <tr className="border-b border-gray-100 hover:bg-gray-50">
                   <td className="py-3 px-4 pl-8 text-gray-600">篩選條件</td>
                   <td className="py-3 px-4 text-center text-gray-600">基本</td>
                   <td className="py-3 px-4 text-center bg-amber-50 text-green-600 font-medium">全部12項</td>
@@ -384,10 +390,10 @@ export default function Pricing() {
                   </td>
                 </tr>
                 <tr className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-3 px-4 pl-8 text-gray-600">進階攻略完整內容</td>
-                  <td className="py-3 px-4 text-center text-amber-600">部分</td>
-                  <td className="py-3 px-4 text-center bg-amber-50 text-green-600 font-medium">全部</td>
-                  <td className="py-3 px-4 text-center text-green-600 font-medium">全部</td>
+                  <td className="py-3 px-4 pl-8 text-gray-600">升學攻略完整內容</td>
+                  <td className="py-3 px-4 text-center"><X className="w-5 h-5 text-gray-300 mx-auto" /></td>
+                  <td className="py-3 px-4 text-center bg-amber-50"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
+                  <td className="py-3 px-4 text-center"><Check className="w-5 h-5 text-green-500 mx-auto" /></td>
                 </tr>
                 <tr className="border-b border-gray-100 hover:bg-gray-50">
                   <td className="py-3 px-4 pl-8 text-gray-600">攻略 PDF 下載</td>
