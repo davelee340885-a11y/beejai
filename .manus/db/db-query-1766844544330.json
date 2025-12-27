@@ -1,0 +1,22 @@
+{
+  "query": "SELECT type, COUNT(*) as count FROM schools GROUP BY type ORDER BY count DESC",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user VqBKoEwKfw4feq4.395c3bada4fe --database WKYFCdp7sTnPH3icM2GRvS --execute SELECT type, COUNT(*) as count FROM schools GROUP BY type ORDER BY count DESC",
+  "rows": [
+    {
+      "type": "kindergarten",
+      "count": "1224"
+    },
+    {
+      "type": "primary",
+      "count": "693"
+    },
+    {
+      "type": "secondary",
+      "count": "623"
+    }
+  ],
+  "messages": [],
+  "stdout": "type\tcount\nkindergarten\t1224\nprimary\t693\nsecondary\t623\n",
+  "stderr": "",
+  "execution_time_ms": 1497
+}

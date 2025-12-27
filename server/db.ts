@@ -174,14 +174,20 @@ export async function getPopularSchools(type?: string, limit = 10) {
   const db = await getDb();
   if (!db) return [];
 
-  const conditions = [eq(schools.isPopular, true)];
+  // 使用 rating 排序而不是依賴 isPopular 標記
+  const conditions = [];
   if (type) conditions.push(eq(schools.type, type as any));
 
-  return db.select()
+  const query = db.select()
     .from(schools)
-    .where(and(...conditions))
-    .orderBy(desc(schools.viewCount))
+    .orderBy(desc(schools.rating), desc(schools.viewCount))
     .limit(limit);
+    
+  if (conditions.length > 0) {
+    return query.where(and(...conditions));
+  }
+  
+  return query;
 }
 
 export async function getSchoolsByDistrict(district: string, limit = 20) {

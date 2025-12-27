@@ -1,0 +1,130 @@
+{
+  "query": "SELECT id, name, type, district FROM schools WHERE name LIKE '%聖保羅%' OR name LIKE '%拔萃女%' OR name LIKE '%喇沙%' OR name LIKE '%聖彼得%' LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user VqBKoEwKfw4feq4.395c3bada4fe --database WKYFCdp7sTnPH3icM2GRvS --execute SELECT id, name, type, district FROM schools WHERE name LIKE '%聖保羅%' OR name LIKE '%拔萃女%' OR name LIKE '%喇沙%' OR name LIKE '%聖彼得%' LIMIT 20;",
+  "rows": [
+    {
+      "id": "130",
+      "name": "聖公會聖彼得小學",
+      "type": "primary",
+      "district": "CENTRAL AND WESTERN"
+    },
+    {
+      "id": "413",
+      "name": "陳瑞祺(喇沙)小學",
+      "type": "primary",
+      "district": "九龍城區"
+    },
+    {
+      "id": "422",
+      "name": "喇沙小學",
+      "type": "primary",
+      "district": "九龍城區"
+    },
+    {
+      "id": "513",
+      "name": "喇沙書院",
+      "type": "secondary",
+      "district": "九龍城區"
+    },
+    {
+      "id": "625",
+      "name": "新界喇沙中學",
+      "type": "secondary",
+      "district": "北區"
+    },
+    {
+      "id": "676",
+      "name": "陳瑞祺(喇沙)書院",
+      "type": "secondary",
+      "district": "九龍城區"
+    },
+    {
+      "id": "956",
+      "name": "聖保羅男女中學附屬小學",
+      "type": "primary",
+      "district": "南區"
+    },
+    {
+      "id": "958",
+      "name": "聖保羅書院小學",
+      "type": "primary",
+      "district": "南區"
+    },
+    {
+      "id": "992",
+      "name": "聖保羅書院",
+      "type": "secondary",
+      "district": "CENTRAL AND WESTERN"
+    },
+    {
+      "id": "1022",
+      "name": "拔萃女書院",
+      "type": "secondary",
+      "district": "油尖旺區"
+    },
+    {
+      "id": "1025",
+      "name": "聖保羅男女中學",
+      "type": "secondary",
+      "district": "CENTRAL AND WESTERN"
+    },
+    {
+      "id": "1549",
+      "name": "北角聖彼得堂幼稚園",
+      "type": "kindergarten",
+      "district": "東區"
+    },
+    {
+      "id": "1550",
+      "name": "北角聖彼得堂幼稚園",
+      "type": "kindergarten",
+      "district": "東區"
+    },
+    {
+      "id": "1678",
+      "name": "聖公會青山聖彼得堂山景邨幼稚園",
+      "type": "kindergarten",
+      "district": "屯門區"
+    },
+    {
+      "id": "1679",
+      "name": "聖公會青山聖彼得堂山景邨幼稚園",
+      "type": "kindergarten",
+      "district": "屯門區"
+    },
+    {
+      "id": "1771",
+      "name": "聖公會青山聖彼得堂幼稚園",
+      "type": "kindergarten",
+      "district": "屯門區"
+    },
+    {
+      "id": "1772",
+      "name": "聖公會青山聖彼得堂幼稚園",
+      "type": "kindergarten",
+      "district": "屯門區"
+    },
+    {
+      "id": "2336",
+      "name": "聖公會青山聖彼得堂兆麟苑幼稚園",
+      "type": "kindergarten",
+      "district": "屯門區"
+    },
+    {
+      "id": "2337",
+      "name": "聖公會青山聖彼得堂兆麟苑幼稚園",
+      "type": "kindergarten",
+      "district": "屯門區"
+    },
+    {
+      "id": "2338",
+      "name": "聖公會青山聖彼得堂兆麟苑幼稚園",
+      "type": "kindergarten",
+      "district": "屯門區"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\ttype\tdistrict\n130\t聖公會聖彼得小學\tprimary\tCENTRAL AND WESTERN\n413\t陳瑞祺(喇沙)小學\tprimary\t九龍城區\n422\t喇沙小學\tprimary\t九龍城區\n513\t喇沙書院\tsecondary\t九龍城區\n625\t新界喇沙中學\tsecondary\t北區\n676\t陳瑞祺(喇沙)書院\tsecondary\t九龍城區\n956\t聖保羅男女中學附屬小學\tprimary\t南區\n958\t聖保羅書院小學\tprimary\t南區\n992\t聖保羅書院\tsecondary\tCENTRAL AND WESTERN\n1022\t拔萃女書院\tsecondary\t油尖旺區\n1025\t聖保羅男女中學\tsecondary\tCENTRAL AND WESTERN\n1549\t北角聖彼得堂幼稚園\tkindergarten\t東區\n1550\t北角聖彼得堂幼稚園\tkindergarten\t東區\n1678\t聖公會青山聖彼得堂山景邨幼稚園\tkindergarten\t屯門區\n1679\t聖公會青山聖彼得堂山景邨幼稚園\tkindergarten\t屯門區\n1771\t聖公會青山聖彼得堂幼稚園\tkindergarten\t屯門區\n1772\t聖公會青山聖彼得堂幼稚園\tkindergarten\t屯門區\n2336\t聖公會青山聖彼得堂兆麟苑幼稚園\tkindergarten\t屯門區\n2337\t聖公會青山聖彼得堂兆麟苑幼稚園\tkindergarten\t屯門區\n2338\t聖公會青山聖彼得堂兆麟苑幼稚園\tkindergarten\t屯門區\n",
+  "stderr": "",
+  "execution_time_ms": 1658
+}

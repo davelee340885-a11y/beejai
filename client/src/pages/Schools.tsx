@@ -24,7 +24,8 @@ import {
   BookOpen,
   GraduationCap,
   Building2,
-  Globe
+  Globe,
+  School
 } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -79,55 +80,65 @@ function SchoolCard({ school }: { school: typeof mockSchools[0] }) {
   
   return (
     <Link href={`/school/${school.id}`}>
-      <Card className="school-card h-full">
-        <div className="relative h-40 overflow-hidden">
-          <img 
-            src={school.image} 
-            alt={school.name}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-          />
-          {user && (
-            <div className="absolute top-2 right-2">
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="bg-white/80 hover:bg-white"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  // TODO: Add to favorites
-                }}
-              >
-                <Heart className="h-4 w-4" />
-              </Button>
-            </div>
-          )}
-          <div className="absolute bottom-2 left-2 flex gap-2">
-            {typeConfig && (
-              <Badge className={`${typeConfig.color} text-white`}>
-                {typeConfig.name}
-              </Badge>
-            )}
-          </div>
-        </div>
+      <Card className="school-card h-full hover:shadow-md transition-shadow">
         <CardContent className="p-4">
-          <h3 className="font-semibold text-base mb-1 line-clamp-2">{school.name}</h3>
-          <p className="text-xs text-muted-foreground mb-2 line-clamp-1">{school.nameEn}</p>
-          <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
-            <span className="flex items-center gap-1">
-              <MapPin className="h-3 w-3" />
-              {school.district}
-            </span>
-            <span className="flex items-center gap-1 text-primary">
-              <Star className="h-3 w-3 fill-current" />
-              {school.rating}
-            </span>
-          </div>
-          <div className="flex items-center justify-between text-xs">
-            <Badge variant="outline">{categories.find(c => c.id === school.category)?.name}</Badge>
-            <span className="text-muted-foreground">
-              {school.tuitionFeeMin === 0 ? "免費" : `$${school.tuitionFeeMin.toLocaleString()}/年`}
-            </span>
+          <div className="flex items-start gap-3">
+            {/* 學校 Logo */}
+            <div className="flex-shrink-0 w-12 h-12 bg-white rounded-lg border flex items-center justify-center overflow-hidden">
+              {school.image ? (
+                <img src={school.image} alt={school.name} className="w-full h-full object-cover" />
+              ) : (
+                <School className="h-6 w-6 text-muted-foreground" />
+              )}
+            </div>
+            
+            {/* 學校資訊 */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-start justify-between gap-2 mb-1">
+                <h3 className="font-semibold text-base line-clamp-2">{school.name}</h3>
+                {user && (
+                  <Button 
+                    variant="ghost" 
+                    size="icon"
+                    className="h-8 w-8 flex-shrink-0"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      // TODO: Add to favorites
+                    }}
+                  >
+                    <Heart className="h-4 w-4" />
+                  </Button>
+                )}
+              </div>
+              <p className="text-xs text-muted-foreground mb-2 line-clamp-1">{school.nameEn}</p>
+              
+              <div className="flex items-center gap-2 mb-2">
+                {typeConfig && (
+                  <Badge className={`${typeConfig.color} text-white text-xs`}>
+                    {typeConfig.name}
+                  </Badge>
+                )}
+                <Badge variant="outline" className="text-xs">
+                  {categories.find(c => c.id === school.category)?.name}
+                </Badge>
+              </div>
+              
+              <div className="flex items-center justify-between text-sm text-muted-foreground">
+                <span className="flex items-center gap-1">
+                  <MapPin className="h-3 w-3" />
+                  {school.district}
+                </span>
+                <span className="flex items-center gap-1 text-primary">
+                  <Star className="h-3 w-3 fill-current" />
+                  {school.rating}
+                </span>
+              </div>
+              
+              <div className="mt-2 text-xs text-muted-foreground">
+                {school.tuitionFeeMin === 0 ? "免費" : `$${school.tuitionFeeMin.toLocaleString()}/年`}
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -149,8 +160,35 @@ export default function Schools() {
   
   const itemsPerPage = 12;
 
+  // 構建 tRPC 查詢參數
+  const queryFilters = useMemo(() => {
+    const filters: any = {
+      page: currentPage,
+      limit: 1000, // 獲取更多學校以支持前端篩選
+    };
+    
+    // 從 URL 參數讀取篩選條件
+    if (selectedType && selectedType !== "all") {
+      filters.type = selectedType as "kindergarten" | "primary" | "secondary" | "international";
+    }
+    if (selectedDistrict && selectedDistrict !== "全部地區") {
+      filters.district = selectedDistrict;
+    }
+    if (selectedCategory && selectedCategory !== "all") {
+      filters.category = selectedCategory as "government" | "aided" | "dss" | "private" | "international";
+    }
+    if (selectedGender && selectedGender !== "all") {
+      filters.gender = selectedGender as "coed" | "boys" | "girls";
+    }
+    if (searchQuery) {
+      filters.search = searchQuery;
+    }
+    
+    return filters;
+  }, [selectedType, selectedDistrict, selectedCategory, selectedGender, searchQuery, currentPage]);
+
   // 從數據庫讀取學校數據
-  const { data: dbData, isLoading } = trpc.school.list.useQuery(undefined);
+  const { data: dbData, isLoading } = trpc.school.list.useQuery(queryFilters);
 
   // 將數據庫學校轉換為前端格式
   const schools = useMemo(() => {
@@ -170,16 +208,8 @@ export default function Schools() {
     }));
   }, [dbData]);
 
-  // 篩選學校
-  const filteredSchools = useMemo(() => {
-    return schools.filter((school: any) => {
-      // Type 和 District 已經在 tRPC query 中篩選
-      if (selectedCategory !== "all" && school.category !== selectedCategory) return false;
-      if (selectedGender !== "all" && school.gender !== selectedGender) return false;
-      if (searchQuery && !school.name.includes(searchQuery) && !school.nameEn.toLowerCase().includes(searchQuery.toLowerCase())) return false;
-      return true;
-    });
-  }, [schools, selectedCategory, selectedGender, searchQuery]);
+  // 所有篩選已在 tRPC query 中完成，這裡直接使用結果
+  const filteredSchools = schools;
 
   const totalPages = Math.ceil(filteredSchools.length / itemsPerPage);
   const paginatedSchools = filteredSchools.slice(

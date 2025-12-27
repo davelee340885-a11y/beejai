@@ -113,6 +113,25 @@ const mockUpcomingDeadlines = [
 export default function Home() {
   const { user } = useAuth();
   
+  // 從數據庫獲取真實的熱門學校（使用學校名稱搜尋）
+  const popularSchoolNames = [
+    "聖保羅男女中學附屬小學",
+    "拔萃女小學",
+    "喇沙小學",
+    "聖公會聖彼得小學"
+  ];
+  
+  // 使用 school.list API 搜尋這些學校
+  const { data: schoolsData } = trpc.school.list.useQuery({ 
+    type: "primary",
+    limit: 1000 // 獲取所有小學
+  });
+  
+  // 篩選出熱門學校
+  const popularSchools = schoolsData?.schools
+    ?.filter(school => popularSchoolNames.includes(school.name))
+    .slice(0, 4) || mockPopularSchools;
+  
   return (
     <div className="min-h-screen bg-white flex">
       {/* 左側垂直選項欄 - Hover 時展開顯示文字標籤 */}
