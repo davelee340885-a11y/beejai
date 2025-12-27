@@ -154,6 +154,7 @@ export default function Dashboard() {
         <div className="p-4 border-b border-gray-200">
           <div className="flex items-center gap-3">
             <Avatar className="h-10 w-10">
+              <AvatarImage src="/little-bee-symbol.png" alt="小蜜蜂" />
               <AvatarFallback className="bg-amber-100 text-amber-700">
                 {user.name?.[0] || "U"}
               </AvatarFallback>
@@ -162,7 +163,7 @@ export default function Dashboard() {
               <p className="font-medium truncate">{user.name || "用戶"}</p>
               <div className="flex items-center gap-1">
                 <Badge variant="outline" className="text-xs bg-amber-50 text-amber-700 border-amber-200">
-                  免費版
+                  小蜜蜂會員
                 </Badge>
               </div>
             </div>
@@ -227,9 +228,20 @@ export default function Dashboard() {
         {activeTab === "overview" && (
           <div className="space-y-6">
             {/* 歡迎區 */}
-            <div className="bg-gradient-to-r from-amber-400 to-orange-400 rounded-2xl p-6 text-white">
-              <h1 className="text-2xl font-bold mb-2">歡迎回來，{user.name || "用戶"}！</h1>
-              <p className="opacity-90">管理您的升學規劃和申請進度，讓 Bee仔升學 助您一臂之力。</p>
+            <div className="bg-gradient-to-r from-amber-400 to-orange-400 rounded-2xl p-6 text-white relative overflow-hidden">
+              <div className="absolute top-4 right-4 opacity-20">
+                <img src="/little-bee-symbol.png" alt="" className="w-24 h-24" />
+              </div>
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-2">
+                  <img src="/little-bee-symbol.png" alt="小蜜蜂" className="w-12 h-12" />
+                  <div>
+                    <h1 className="text-2xl font-bold">歡迎回來，{user.name || "用戶"}！</h1>
+                    <p className="text-sm opacity-90">小蜜蜂會員</p>
+                  </div>
+                </div>
+                <p className="opacity-90">管理您的升學規劃和申請進度，讓 BeeJAI 助您一臂之力。</p>
+              </div>
             </div>
 
             {/* 統計卡片 */}

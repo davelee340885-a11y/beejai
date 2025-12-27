@@ -17,7 +17,7 @@ const plans = [
     description: "免費體驗平台核心功能",
     monthlyPrice: 0,
     yearlyPrice: 0,
-    icon: "🐝",
+    icon: "/little-bee-symbol.png",
     color: "amber",
     popular: false,
     features: [
@@ -43,7 +43,7 @@ const plans = [
     description: "解鎖大部分實用功能",
     monthlyPrice: 99,
     yearlyPrice: 799,
-    icon: "🐝",
+    icon: "/golden-bee-symbol.png",
     color: "yellow",
     popular: true,
     features: [
@@ -69,7 +69,7 @@ const plans = [
     description: "頂級 VIP 專屬體驗",
     monthlyPrice: 299,
     yearlyPrice: 2399,
-    icon: "👑",
+    icon: "/queen-bee-symbol.png",
     color: "purple",
     popular: false,
     features: [
@@ -198,7 +198,9 @@ export default function Pricing() {
                 )}
                 
                 <CardHeader className="text-center pb-4">
-                  <div className="text-4xl mb-2">{plan.icon}</div>
+                  <div className="flex justify-center mb-2">
+                    <img src={plan.icon} alt={plan.name} className="w-20 h-20 object-contain" />
+                  </div>
                   <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
                   <CardDescription className="text-sm text-gray-500">
                     {plan.nameEn}
@@ -298,21 +300,21 @@ export default function Pricing() {
                   <th className="text-left py-4 px-4 font-semibold text-gray-900">功能</th>
                   <th className="text-center py-4 px-4 font-semibold text-gray-900">
                     <div className="flex flex-col items-center">
-                      <span className="text-2xl mb-1">🐝</span>
+                      <img src="/little-bee-symbol.png" alt="小蜜蜂" className="w-12 h-12 object-contain mb-1" />
                       <span>小蜜蜂</span>
                       <span className="text-sm font-normal text-gray-500">免費</span>
                     </div>
                   </th>
                   <th className="text-center py-4 px-4 font-semibold text-amber-600 bg-amber-50">
                     <div className="flex flex-col items-center">
-                      <span className="text-2xl mb-1">🐝</span>
+                      <img src="/golden-bee-symbol.png" alt="黃蜂" className="w-12 h-12 object-contain mb-1" />
                       <span>黃蜂</span>
                       <span className="text-sm font-normal text-gray-500">HK$99/月</span>
                     </div>
                   </th>
                   <th className="text-center py-4 px-4 font-semibold text-purple-600">
                     <div className="flex flex-col items-center">
-                      <span className="text-2xl mb-1">👑</span>
+                      <img src="/queen-bee-symbol.png" alt="蜂后" className="w-12 h-12 object-contain mb-1" />
                       <span>蜂后</span>
                       <span className="text-sm font-normal text-gray-500">HK$299/月</span>
                     </div>

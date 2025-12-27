@@ -150,8 +150,12 @@ export default function Navbar() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="sm" className="gap-2">
-                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
-                      <User className="h-4 w-4 text-primary" />
+                    <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden">
+                      <img 
+                        src="/little-bee-symbol.png" 
+                        alt="小蜜蜂" 
+                        className="w-6 h-6 object-contain" 
+                      />
                     </div>
                     <span className="hidden md:block max-w-[100px] truncate font-light">
                       {user.name || "用戶"}
@@ -161,7 +165,13 @@ export default function Navbar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
                   <div className="px-2 py-1.5">
-                    <p className="text-sm font-medium">{user.name || "用戶"}</p>
+                    <div className="flex items-center gap-2 mb-1">
+                      <img src="/little-bee-symbol.png" alt="小蜜蜂" className="w-8 h-8 object-contain" />
+                      <div>
+                        <p className="text-sm font-medium">{user.name || "用戶"}</p>
+                        <p className="text-xs text-amber-600 font-medium">小蜜蜂會員</p>
+                      </div>
+                    </div>
                     <p className="text-xs text-muted-foreground">{user.email}</p>
                   </div>
                   <DropdownMenuSeparator />
