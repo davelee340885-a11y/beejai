@@ -50,13 +50,13 @@ for (const record of records) {
     continue; // Skip unknown types
   }
   
-  // Map finance type
-  let financeCategory = 'aided';
-  if (financeType === 'GOVERNMENT') financeCategory = 'government';
-  else if (financeType === 'AIDED') financeCategory = 'aided';
-  else if (financeType === 'DIRECT SUBSIDY SCHEME') financeCategory = 'dss';
-  else if (financeType === 'PRIVATE') financeCategory = 'private';
-  else if (financeType === 'INTERNATIONAL') financeCategory = 'international';
+  // Map finance type (category in schema)
+  let category = 'aided';
+  if (financeType === 'GOVERNMENT') category = 'government';
+  else if (financeType === 'AIDED') category = 'aided';
+  else if (financeType === 'DIRECT SUBSIDY SCHEME') category = 'dss';
+  else if (financeType === 'PRIVATE') category = 'private';
+  else if (financeType === 'INTERNATIONAL') category = 'international';
   
   // Map gender
   const gender = record['STUDENTS GENDER']?.trim();
@@ -115,8 +115,8 @@ for (const record of records) {
   const latitude = parseFloat(record['LATITUDE']) || null;
   
   schoolsToInsert.push({
-    name: englishName,
-    chineseName: chineseName || englishName,
+    name: chineseName || englishName,
+    nameEn: englishName,
     type,
     district,
     address: record['ENGLISH ADDRESS']?.trim() || '',
@@ -132,7 +132,7 @@ for (const record of records) {
     classCount: null, // Not in CSV
     
     // Classification
-    financeType: financeCategory,
+    category: category,
     gender: genderType,
     religion,
     band: null, // Not in CSV

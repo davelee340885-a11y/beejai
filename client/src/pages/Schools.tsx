@@ -149,17 +149,41 @@ export default function Schools() {
   
   const itemsPerPage = 12;
 
+  // 從數據庫讀取學校數據
+  const { data: dbData, isLoading } = trpc.school.list.useQuery({
+    type: selectedType === "all" ? undefined : selectedType as any,
+    district: selectedDistrict === "全部地區" ? undefined : selectedDistrict,
+    limit: 1000,
+  });
+
+  // 將數據庫學校轉換為前端格式
+  const schools = useMemo(() => {
+    const dbSchools = dbData?.schools || [];
+    return dbSchools.map((school: any) => ({
+      id: school.id,
+      name: school.name,
+      nameEn: school.nameEn || school.name,
+      type: school.type,
+      district: school.district || "",
+      category: school.category || "aided",
+      gender: school.gender || "coed",
+      rating: school.rating || 0,
+      tuitionFeeMin: 0,
+      tuitionFeeMax: 0,
+      image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=400&h=300&fit=crop",
+    }));
+  }, [dbData]);
+
   // 篩選學校
   const filteredSchools = useMemo(() => {
-    return mockSchools.filter(school => {
-      if (selectedType !== "all" && school.type !== selectedType) return false;
-      if (selectedDistrict !== "全部地區" && school.district !== selectedDistrict) return false;
+    return schools.filter((school: any) => {
+      // Type 和 District 已經在 tRPC query 中篩選
       if (selectedCategory !== "all" && school.category !== selectedCategory) return false;
       if (selectedGender !== "all" && school.gender !== selectedGender) return false;
       if (searchQuery && !school.name.includes(searchQuery) && !school.nameEn.toLowerCase().includes(searchQuery.toLowerCase())) return false;
       return true;
     });
-  }, [selectedType, selectedDistrict, selectedCategory, selectedGender, searchQuery]);
+  }, [schools, selectedCategory, selectedGender, searchQuery]);
 
   const totalPages = Math.ceil(filteredSchools.length / itemsPerPage);
   const paginatedSchools = filteredSchools.slice(
@@ -289,7 +313,7 @@ export default function Schools() {
                 ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
                 : "flex flex-col gap-4"
             }>
-              {paginatedSchools.map((school) => (
+              {paginatedSchools.map((school: any) => (
                 <SchoolCard key={school.id} school={school} />
               ))}
             </div>
