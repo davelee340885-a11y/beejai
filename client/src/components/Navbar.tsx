@@ -23,7 +23,8 @@ import {
   FileText,
   Trophy,
   ChevronDown,
-  Shield
+  Shield,
+  Crown
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
@@ -67,6 +68,12 @@ const navItems = [
     href: "/rankings", 
     icon: Trophy,
     color: "text-yellow-600"
+  },
+  { 
+    label: "會員方案", 
+    href: "/pricing", 
+    icon: Crown,
+    color: "text-amber-500"
   },
 ];
 

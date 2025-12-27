@@ -18,6 +18,7 @@ import TuitionCalculator from "./pages/TuitionCalculator";
 import PremiumServices from "./pages/PremiumServices";
 import StarterPack from "./pages/StarterPack";
 import QuickGuide from "./pages/QuickGuide";
+import Pricing from "./pages/Pricing";
 
 // 不顯示 Navbar 的頁面
 const noNavbarRoutes = ["/dashboard", "/admin"];
@@ -38,6 +39,7 @@ function Router() {
       <Route path="/premium-services" component={PremiumServices} />
       <Route path="/starter-pack" component={StarterPack} />
       <Route path="/quick-guide" component={QuickGuide} />
+      <Route path="/pricing" component={Pricing} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
