@@ -105,3 +105,8 @@ temp/
 *.db
 *.sqlite
 *.sqlite3
+
+# Large data files
+*.csv
+SCH_LOC_EDB.csv
+import-schools.mjs
