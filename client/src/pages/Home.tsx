@@ -543,6 +543,12 @@ export default function Home() {
                 <Link href="/pricing" className="text-xs text-gray-500 hover:text-amber-500 transition-colors">
                   會員方案
                 </Link>
+                <Link href="/terms" className="text-xs text-gray-500 hover:text-amber-500 transition-colors">
+                  用戶條款
+                </Link>
+                <Link href="/privacy" className="text-xs text-gray-500 hover:text-amber-500 transition-colors">
+                  私隱政策
+                </Link>
               </div>
               <p className="text-xs text-gray-500">© 2024 BeeJAI. 香港升學資訊平台</p>
             </div>

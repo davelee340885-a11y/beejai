@@ -31,6 +31,7 @@ import { getLoginUrl } from "@/const";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import TermsAcceptDialog from "@/components/TermsAcceptDialog";
 
 const navItems = [
   { 
@@ -81,6 +82,7 @@ export default function Navbar() {
   const { user, loading, logout } = useAuth();
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [termsDialogOpen, setTermsDialogOpen] = useState(false);
 
   const handleLogout = async () => {
     await logout();
@@ -216,9 +218,18 @@ export default function Navbar() {
               </DropdownMenu>
             </>
           ) : (
-            <Button asChild className="font-light">
-              <a href={getLoginUrl()}>登入</a>
-            </Button>
+            <>
+              <Button 
+                className="font-light"
+                onClick={() => setTermsDialogOpen(true)}
+              >
+                登入
+              </Button>
+              <TermsAcceptDialog 
+                open={termsDialogOpen} 
+                onOpenChange={setTermsDialogOpen} 
+              />
+            </>
           )}
 
           {/* Mobile Menu */}
