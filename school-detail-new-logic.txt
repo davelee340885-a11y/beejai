@@ -1,0 +1,58 @@
+export default function SchoolDetail() {
+  const params = useParams<{ id: string }>();
+  const { user } = useAuth();
+  const [isFavorite, setIsFavorite] = useState(false);
+  
+  // 獲取學校 ID
+  const schoolId = params.id ? parseInt(params.id) : 1;
+  
+  // 使用 tRPC 獲取學校數據
+  const { data: schoolData, isLoading } = trpc.school.getById.useQuery({ id: schoolId });
+  
+  // 如果正在加載，顯示加載狀態
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">加載中...</p>
+        </div>
+      </div>
+    );
+  }
+  
+  // 如果沒有找到學校，顯示錯誤
+  if (!schoolData) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Building2 className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+          <h2 className="text-2xl font-bold mb-2">找不到學校</h2>
+          <p className="text-muted-foreground mb-4">該學校不存在或已被移除</p>
+          <Link href="/schools">
+            <Button>返回學校列表</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+  
+  // 合併真實數據和模擬數據（為了保持頁面功能）
+  const school = {
+    ...mockSchoolDetail,
+    ...schoolData,
+    id: schoolData.id,
+    name: schoolData.name || mockSchoolDetail.name,
+    nameEn: schoolData.nameEn || mockSchoolDetail.nameEn,
+    type: schoolData.type || mockSchoolDetail.type,
+    district: schoolData.district || mockSchoolDetail.district,
+    address: schoolData.address || mockSchoolDetail.address,
+    phone: schoolData.phone || mockSchoolDetail.phone,
+    email: schoolData.email || mockSchoolDetail.email,
+    website: schoolData.website || mockSchoolDetail.website,
+    category: schoolData.category || mockSchoolDetail.category,
+    gender: schoolData.gender || mockSchoolDetail.gender,
+    rating: schoolData.rating || mockSchoolDetail.rating,
+  };
+  
+  const typeConfig = schoolTypes[school.type];

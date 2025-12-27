@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { toast } from "sonner";
+import { trpc } from "@/lib/trpc";
 
 // 模擬學校詳細數據
 const mockSchoolDetail = {
@@ -90,7 +91,53 @@ export default function SchoolDetail() {
   const { user } = useAuth();
   const [isFavorite, setIsFavorite] = useState(false);
   
-  const school = mockSchoolDetail;
+  const schoolId = params.id ? parseInt(params.id) : 1;
+  const { data: schoolData, isLoading } = trpc.school.getById.useQuery({ id: schoolId });
+  
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+  
+  if (!schoolData) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Building2 className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+          <h2 className="text-2xl font-bold mb-2">School not found</h2>
+          <p className="text-muted-foreground mb-4">The school does not exist or has been removed</p>
+          <Link href="/schools">
+            <Button>Back to list</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+  
+  const school = {
+    ...mockSchoolDetail,
+    id: schoolData.id,
+    name: schoolData.name || mockSchoolDetail.name,
+    nameEn: schoolData.nameEn || mockSchoolDetail.nameEn,
+    type: schoolData.type || mockSchoolDetail.type,
+    district: schoolData.district || mockSchoolDetail.district,
+    address: schoolData.address || mockSchoolDetail.address,
+    phone: schoolData.phone || mockSchoolDetail.phone,
+    email: schoolData.email || mockSchoolDetail.email,
+    website: schoolData.website || mockSchoolDetail.website,
+    category: schoolData.category || mockSchoolDetail.category,
+    gender: schoolData.gender || mockSchoolDetail.gender,
+    rating: schoolData.rating || mockSchoolDetail.rating,
+    features: mockSchoolDetail.features,
+    admissionInfo: mockSchoolDetail.admissionInfo,
+  };
+  
   const typeConfig = schoolTypes[school.type];
 
   const handleFavorite = () => {
@@ -206,7 +253,7 @@ export default function SchoolDetail() {
                     <p className="text-muted-foreground">{school.description}</p>
                     
                     <div className="flex flex-wrap gap-2 mt-4">
-                      {school.features.map((feature) => (
+                      {(school.features || []).map((feature: string) => (
                         <Badge key={feature} variant="secondary">
                           {feature}
                         </Badge>
@@ -314,7 +361,7 @@ export default function SchoolDetail() {
                   <CardContent>
                     {user ? (
                       <ul className="space-y-2">
-                        {school.admissionInfo.requirements.map((req, i) => (
+                        {(school.admissionInfo?.requirements || []).map((req: string, i: number) => (
                           <li key={i} className="flex items-start gap-2">
                             <span className="w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm flex-shrink-0">
                               {i + 1}
@@ -342,7 +389,7 @@ export default function SchoolDetail() {
                   <CardContent>
                     {user ? (
                       <ul className="space-y-2">
-                        {school.admissionInfo.documents.map((doc, i) => (
+                        {(school.admissionInfo?.documents || []).map((doc: string, i: number) => (
                           <li key={i} className="flex items-center gap-2 text-muted-foreground">
                             <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                             {doc}
@@ -369,7 +416,7 @@ export default function SchoolDetail() {
                       學校提供全面的課程，涵蓋學術、藝術、體育和品德教育。特色課程包括：
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                      {school.features.map((feature) => (
+                      {(school.features || []).map((feature: string) => (
                         <div key={feature} className="p-4 bg-muted rounded-lg">
                           <p className="font-medium">{feature}</p>
                         </div>

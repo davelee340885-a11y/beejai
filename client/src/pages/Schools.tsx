@@ -150,11 +150,7 @@ export default function Schools() {
   const itemsPerPage = 12;
 
   // 從數據庫讀取學校數據
-  const { data: dbData, isLoading } = trpc.school.list.useQuery({
-    type: selectedType === "all" ? undefined : selectedType as any,
-    district: selectedDistrict === "全部地區" ? undefined : selectedDistrict,
-    limit: 1000,
-  });
+  const { data: dbData, isLoading } = trpc.school.list.useQuery(undefined);
 
   // 將數據庫學校轉換為前端格式
   const schools = useMemo(() => {
@@ -192,6 +188,17 @@ export default function Schools() {
   );
 
   const currentTypeConfig = schoolTypes.find(t => t.id === selectedType);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading schools...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
