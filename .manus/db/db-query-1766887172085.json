@@ -1,0 +1,31 @@
+{
+  "query": "\nSELECT \n  COUNT(*) as total_schools,\n  COUNT(nameEn) as has_english_name,\n  COUNT(category) as has_category,\n  COUNT(gender) as has_gender,\n  COUNT(religion) as has_religion,\n  COUNT(language) as has_language,\n  COUNT(curriculum) as has_curriculum,\n  COUNT(band) as has_band,\n  COUNT(schoolNet) as has_school_net,\n  COUNT(linkedSchool) as has_linked_school,\n  COUNT(tuitionFeeMin) as has_tuition_fee,\n  COUNT(studentCount) as has_student_count,\n  COUNT(teacherCount) as has_teacher_count,\n  COUNT(classCount) as has_class_count,\n  COUNT(foundedYear) as has_founded_year,\n  COUNT(description) as has_description,\n  COUNT(features) as has_features,\n  COUNT(website) as has_website,\n  COUNT(email) as has_email\nFROM schools;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user VqBKoEwKfw4feq4.395c3bada4fe --database WKYFCdp7sTnPH3icM2GRvS --execute \nSELECT \n  COUNT(*) as total_schools,\n  COUNT(nameEn) as has_english_name,\n  COUNT(category) as has_category,\n  COUNT(gender) as has_gender,\n  COUNT(religion) as has_religion,\n  COUNT(language) as has_language,\n  COUNT(curriculum) as has_curriculum,\n  COUNT(band) as has_band,\n  COUNT(schoolNet) as has_school_net,\n  COUNT(linkedSchool) as has_linked_school,\n  COUNT(tuitionFeeMin) as has_tuition_fee,\n  COUNT(studentCount) as has_student_count,\n  COUNT(teacherCount) as has_teacher_count,\n  COUNT(classCount) as has_class_count,\n  COUNT(foundedYear) as has_founded_year,\n  COUNT(description) as has_description,\n  COUNT(features) as has_features,\n  COUNT(website) as has_website,\n  COUNT(email) as has_email\nFROM schools;\n",
+  "rows": [
+    {
+      "total_schools": "2540",
+      "has_english_name": "2540",
+      "has_category": "2540",
+      "has_gender": "2540",
+      "has_religion": "1431",
+      "has_language": "0",
+      "has_curriculum": "0",
+      "has_band": "0",
+      "has_school_net": "0",
+      "has_linked_school": "0",
+      "has_tuition_fee": "0",
+      "has_student_count": "0",
+      "has_teacher_count": "0",
+      "has_class_count": "0",
+      "has_founded_year": "0",
+      "has_description": "0",
+      "has_features": "0",
+      "has_website": "2540",
+      "has_email": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_schools\thas_english_name\thas_category\thas_gender\thas_religion\thas_language\thas_curriculum\thas_band\thas_school_net\thas_linked_school\thas_tuition_fee\thas_student_count\thas_teacher_count\thas_class_count\thas_founded_year\thas_description\thas_features\thas_website\thas_email\n2540\t2540\t2540\t2540\t1431\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t0\t2540\t0\n",
+  "stderr": "",
+  "execution_time_ms": 2495
+}

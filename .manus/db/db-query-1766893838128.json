@@ -1,0 +1,42 @@
+{
+  "query": "\nSELECT id, name, nameEn, type, district, rating \nFROM schools \nWHERE name IN ('聖保羅男女中學附屬小學', '拔萃女小學', '喇沙小學', '聖公會聖彼得小學')\nORDER BY FIELD(name, '聖保羅男女中學附屬小學', '拔萃女小學', '喇沙小學', '聖公會聖彼得小學');\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user VqBKoEwKfw4feq4.395c3bada4fe --database WKYFCdp7sTnPH3icM2GRvS --execute \nSELECT id, name, nameEn, type, district, rating \nFROM schools \nWHERE name IN ('聖保羅男女中學附屬小學', '拔萃女小學', '喇沙小學', '聖公會聖彼得小學')\nORDER BY FIELD(name, '聖保羅男女中學附屬小學', '拔萃女小學', '喇沙小學', '聖公會聖彼得小學');\n",
+  "rows": [
+    {
+      "id": "956",
+      "name": "聖保羅男女中學附屬小學",
+      "nameEn": "ST. PAUL'S CO-EDUCATIONAL COLLEGE PRIMARY SCHOOL",
+      "type": "primary",
+      "district": "南區",
+      "rating": "0.0"
+    },
+    {
+      "id": "2461",
+      "name": "拔萃女小學",
+      "nameEn": "DIOCESAN GIRLS' JUNIOR SCHOOL",
+      "type": "primary",
+      "district": "油尖旺區",
+      "rating": "0.0"
+    },
+    {
+      "id": "422",
+      "name": "喇沙小學",
+      "nameEn": "LA SALLE PRIMARY SCHOOL",
+      "type": "primary",
+      "district": "九龍城區",
+      "rating": "0.0"
+    },
+    {
+      "id": "130",
+      "name": "聖公會聖彼得小學",
+      "nameEn": "S.K.H. ST. PETER'S PRIMARY SCHOOL",
+      "type": "primary",
+      "district": "CENTRAL AND WESTERN",
+      "rating": "0.0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tnameEn\ttype\tdistrict\trating\n956\t聖保羅男女中學附屬小學\tST. PAUL'S CO-EDUCATIONAL COLLEGE PRIMARY SCHOOL\tprimary\t南區\t0.0\n2461\t拔萃女小學\tDIOCESAN GIRLS' JUNIOR SCHOOL\tprimary\t油尖旺區\t0.0\n422\t喇沙小學\tLA SALLE PRIMARY SCHOOL\tprimary\t九龍城區\t0.0\n130\t聖公會聖彼得小學\tS.K.H. ST. PETER'S PRIMARY SCHOOL\tprimary\tCENTRAL AND WESTERN\t0.0\n",
+  "stderr": "",
+  "execution_time_ms": 1523
+}

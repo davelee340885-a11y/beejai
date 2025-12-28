@@ -164,7 +164,7 @@ export default function Schools() {
   const queryFilters = useMemo(() => {
     const filters: any = {
       page: currentPage,
-      limit: 1000, // 獲取更多學校以支持前端篩選
+      limit: itemsPerPage, // 使用後端分頁，不需要前端二次分頁
     };
     
     // 從 URL 參數讀取篩選條件
@@ -208,14 +208,10 @@ export default function Schools() {
     }));
   }, [dbData]);
 
-  // 所有篩選已在 tRPC query 中完成，這裡直接使用結果
+  // 所有篩選和分頁已在後端完成，前端直接使用結果
   const filteredSchools = schools;
-
-  const totalPages = Math.ceil(filteredSchools.length / itemsPerPage);
-  const paginatedSchools = filteredSchools.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const paginatedSchools = schools; // 後端已分頁，不需要前端再切割
+  const totalPages = Math.ceil((dbData?.total || 0) / itemsPerPage); // 使用後端返回的總數計算總頁數
 
   const currentTypeConfig = schoolTypes.find(t => t.id === selectedType);
 
@@ -246,7 +242,7 @@ export default function Schools() {
                 {selectedType === "all" ? "全部學校" : currentTypeConfig?.name}
               </h1>
               <p className="text-muted-foreground">
-                共 {filteredSchools.length} 間學校
+                共 {dbData?.total || 0} 間學校
               </p>
             </div>
           </div>
@@ -367,16 +363,77 @@ export default function Schools() {
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
                 
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <Button
-                    key={page}
-                    variant={currentPage === page ? "default" : "outline"}
-                    size="icon"
-                    onClick={() => setCurrentPage(page)}
-                  >
-                    {page}
-                  </Button>
-                ))}
+                {(() => {
+                  // 智能分頁號碼顯示：最多顯示 7 個按鈕
+                  const maxButtons = 7;
+                  let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+                  let endPage = Math.min(totalPages, startPage + maxButtons - 1);
+                  
+                  // 調整起始頁，確保顯示 maxButtons 個按鈕
+                  if (endPage - startPage + 1 < maxButtons) {
+                    startPage = Math.max(1, endPage - maxButtons + 1);
+                  }
+                  
+                  const pages = [];
+                  
+                  // 第 1 頁
+                  if (startPage > 1) {
+                    pages.push(
+                      <Button
+                        key={1}
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setCurrentPage(1)}
+                      >
+                        1
+                      </Button>
+                    );
+                    if (startPage > 2) {
+                      pages.push(
+                        <span key="ellipsis-start" className="px-2 text-muted-foreground">
+                          ...
+                        </span>
+                      );
+                    }
+                  }
+                  
+                  // 中間頁碼
+                  for (let i = startPage; i <= endPage; i++) {
+                    pages.push(
+                      <Button
+                        key={i}
+                        variant={currentPage === i ? "default" : "outline"}
+                        size="icon"
+                        onClick={() => setCurrentPage(i)}
+                      >
+                        {i}
+                      </Button>
+                    );
+                  }
+                  
+                  // 最後 1 頁
+                  if (endPage < totalPages) {
+                    if (endPage < totalPages - 1) {
+                      pages.push(
+                        <span key="ellipsis-end" className="px-2 text-muted-foreground">
+                          ...
+                        </span>
+                      );
+                    }
+                    pages.push(
+                      <Button
+                        key={totalPages}
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setCurrentPage(totalPages)}
+                      >
+                        {totalPages}
+                      </Button>
+                    );
+                  }
+                  
+                  return pages;
+                })()}
                 
                 <Button
                   variant="outline"

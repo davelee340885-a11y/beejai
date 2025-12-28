@@ -97,10 +97,10 @@ const premiumServices = [
 
 // 模擬熱門學校數據
 const mockPopularSchools = [
-  { id: 1, name: "聖保羅男女中學附屬小學", type: "primary", district: "南區", rating: 4.9, logo: "/school-logos/spcc-ps.jpg" },
-  { id: 2, name: "拔萃女小學", type: "primary", district: "油尖旺區", rating: 4.8, logo: "/school-logos/dgjs.jpg" },
-  { id: 3, name: "喇沙小學", type: "primary", district: "九龍城區", rating: 4.8, logo: "/school-logos/lasalle.jpg" },
-  { id: 4, name: "聖公會聖彼得小學", type: "primary", district: "中西區", rating: 4.7, logo: "/school-logos/spps.jpg" },
+  { id: 956, name: "聖保羅男女中學附屬小學", type: "primary", district: "南區", rating: 4.9, logo: "/school-logos/spcc-ps.jpg" },
+  { id: 2461, name: "拔萃女小學", type: "primary", district: "油尖旺區", rating: 4.8, logo: "/school-logos/dgjs.jpg" },
+  { id: 422, name: "喇沙小學", type: "primary", district: "九龍城區", rating: 4.8, logo: "/school-logos/lasalle.jpg" },
+  { id: 130, name: "聖公會聖彼得小學", type: "primary", district: "中西區", rating: 4.7, logo: "/school-logos/spps.jpg" },
 ];
 
 // 模擬即將截止申請
