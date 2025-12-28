@@ -156,7 +156,10 @@ export default function Schools() {
   const [selectedGender, setSelectedGender] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(() => {
+    const pageParam = params.get("page");
+    return pageParam ? parseInt(pageParam, 10) : 1;
+  });
   
   const itemsPerPage = 12;
 
@@ -363,6 +366,18 @@ export default function Schools() {
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
                 
+                {/* 上 10 頁按鈕 */}
+                {totalPages > 10 && currentPage > 10 && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCurrentPage(p => Math.max(1, p - 10))}
+                    className="px-3"
+                  >
+                    «10
+                  </Button>
+                )}
+                
                 {(() => {
                   // 智能分頁號碼顯示：最多顯示 7 個按鈕
                   const maxButtons = 7;
@@ -434,6 +449,18 @@ export default function Schools() {
                   
                   return pages;
                 })()}
+                
+{/* 下 10 頁按鈕 */}
+                {totalPages > 10 && currentPage <= totalPages - 10 && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 10))}
+                    className="px-3"
+                  >
+                    10»
+                  </Button>
+                )}
                 
                 <Button
                   variant="outline"
