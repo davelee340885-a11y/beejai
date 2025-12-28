@@ -1,0 +1,13 @@
+{
+  "query": "SELECT COUNT(*) as count FROM schools WHERE nameEn LIKE '%International%' OR nameEn LIKE '%INTERNATIONAL%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user VqBKoEwKfw4feq4.395c3bada4fe --database WKYFCdp7sTnPH3icM2GRvS --execute SELECT COUNT(*) as count FROM schools WHERE nameEn LIKE '%International%' OR nameEn LIKE '%INTERNATIONAL%';",
+  "rows": [
+    {
+      "count": "144"
+    }
+  ],
+  "messages": [],
+  "stdout": "count\n144\n",
+  "stderr": "",
+  "execution_time_ms": 1639
+}

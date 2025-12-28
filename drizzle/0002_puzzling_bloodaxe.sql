@@ -1,0 +1,1 @@
+ALTER TABLE `schools` ADD `isInternational` boolean DEFAULT false;

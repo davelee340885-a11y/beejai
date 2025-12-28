@@ -1,0 +1,150 @@
+{
+  "query": "SELECT id, name, nameEn, type, category FROM schools WHERE category = 'private' LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user VqBKoEwKfw4feq4.395c3bada4fe --database WKYFCdp7sTnPH3icM2GRvS --execute SELECT id, name, nameEn, type, category FROM schools WHERE category = 'private' LIMIT 20;",
+  "rows": [
+    {
+      "id": "1118",
+      "name": "弘爵國際學校",
+      "nameEn": "SEAR ROGERS INTERNATIONAL SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1119",
+      "name": "CARMEL SCHOOL",
+      "nameEn": "CARMEL SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1120",
+      "name": "港灣學校",
+      "nameEn": "THE HARBOUR SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1121",
+      "name": "KELLETT SCHOOL",
+      "nameEn": "KELLETT SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1122",
+      "name": "宣道國際學校",
+      "nameEn": "CHRISTIAN ALLIANCE INTERNATIONAL SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1123",
+      "name": "耀中國際學校",
+      "nameEn": "YEW CHUNG INTERNATIONAL SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1124",
+      "name": "德思齊加拿大國際學校",
+      "nameEn": "DSC INTERNATIONAL SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1125",
+      "name": "KELLETT SCHOOL",
+      "nameEn": "KELLETT SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1126",
+      "name": "德瑞國際學校",
+      "nameEn": "GERMAN SWISS INTERNATIONAL SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1127",
+      "name": "加拿大國際學校",
+      "nameEn": "CANADIAN INTERNATIONAL SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1128",
+      "name": "DISCOVERY BAY INTERNATIONAL SCHOOL",
+      "nameEn": "DISCOVERY BAY INTERNATIONAL SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1129",
+      "name": "LANTAU INTERNATIONAL SCHOOL",
+      "nameEn": "LANTAU INTERNATIONAL SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1130",
+      "name": "AMERICAN INTERNATIONAL SCHOOL (PRIMARY BRANCH)",
+      "nameEn": "AMERICAN INTERNATIONAL SCHOOL (PRIMARY BRANCH)",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1131",
+      "name": "HONGKONG JAPANESE SCHOOL",
+      "nameEn": "HONGKONG JAPANESE SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1132",
+      "name": "CARMEL SCHOOL",
+      "nameEn": "CARMEL SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1133",
+      "name": "LANTAU INTERNATIONAL SCHOOL",
+      "nameEn": "LANTAU INTERNATIONAL SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1134",
+      "name": "哈羅香港國際學校",
+      "nameEn": "HARROW INTERNATIONAL SCHOOL HONG KONG",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1135",
+      "name": "美國國際學校",
+      "nameEn": "AMERICAN INTERNATIONAL SCHOOL",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1136",
+      "name": "新加坡國際學校",
+      "nameEn": "SINGAPORE INTERNATIONAL SCHOOL (HONG KONG)",
+      "type": "primary",
+      "category": "private"
+    },
+    {
+      "id": "1137",
+      "name": "NORD ANGLIA INTERNATIONAL SCHOOL, HONG KONG",
+      "nameEn": "NORD ANGLIA INTERNATIONAL SCHOOL, HONG KONG",
+      "type": "primary",
+      "category": "private"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tnameEn\ttype\tcategory\n1118\t弘爵國際學校\tSEAR ROGERS INTERNATIONAL SCHOOL\tprimary\tprivate\n1119\tCARMEL SCHOOL\tCARMEL SCHOOL\tprimary\tprivate\n1120\t港灣學校\tTHE HARBOUR SCHOOL\tprimary\tprivate\n1121\tKELLETT SCHOOL\tKELLETT SCHOOL\tprimary\tprivate\n1122\t宣道國際學校\tCHRISTIAN ALLIANCE INTERNATIONAL SCHOOL\tprimary\tprivate\n1123\t耀中國際學校\tYEW CHUNG INTERNATIONAL SCHOOL\tprimary\tprivate\n1124\t德思齊加拿大國際學校\tDSC INTERNATIONAL SCHOOL\tprimary\tprivate\n1125\tKELLETT SCHOOL\tKELLETT SCHOOL\tprimary\tprivate\n1126\t德瑞國際學校\tGERMAN SWISS INTERNATIONAL SCHOOL\tprimary\tprivate\n1127\t加拿大國際學校\tCANADIAN INTERNATIONAL SCHOOL\tprimary\tprivate\n1128\tDISCOVERY BAY INTERNATIONAL SCHOOL\tDISCOVERY BAY INTERNATIONAL SCHOOL\tprimary\tprivate\n1129\tLANTAU INTERNATIONAL SCHOOL\tLANTAU INTERNATIONAL SCHOOL\tprimary\tprivate\n1130\tAMERICAN INTERNATIONAL SCHOOL (PRIMARY BRANCH)\tAMERICAN INTERNATIONAL SCHOOL (PRIMARY BRANCH)\tprimary\tprivate\n1131\tHONGKONG JAPANESE SCHOOL\tHONGKONG JAPANESE SCHOOL\tprimary\tprivate\n1132\tCARMEL SCHOOL\tCARMEL SCHOOL\tprimary\tprivate\n1133\tLANTAU INTERNATIONAL SCHOOL\tLANTAU INTERNATIONAL SCHOOL\tprimary\tprivate\n1134\t哈羅香港國際學校\tHARROW INTERNATIONAL SCHOOL HONG KONG\tprimary\tprivate\n1135\t美國國際學校\tAMERICAN INTERNATIONAL SCHOOL\tprimary\tprivate\n1136\t新加坡國際學校\tSINGAPORE INTERNATIONAL SCHOOL (HONG KONG)\tprimary\tprivate\n1137\tNORD ANGLIA INTERNATIONAL SCHOOL, HONG KONG\tNORD ANGLIA INTERNATIONAL SCHOOL, HONG KONG\tprimary\tprivate\n",
+  "stderr": "",
+  "execution_time_ms": 1736
+}

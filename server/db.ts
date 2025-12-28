@@ -114,6 +114,7 @@ export interface SchoolFilters {
   tuitionMax?: number;
   search?: string;
   isPopular?: boolean;
+  isInternational?: boolean;
 }
 
 export async function getSchools(filters: SchoolFilters = {}, page = 1, limit = 20) {
@@ -131,6 +132,7 @@ export async function getSchools(filters: SchoolFilters = {}, page = 1, limit = 
   if (filters.tuitionMin) conditions.push(gte(schools.tuitionFeeMin, filters.tuitionMin));
   if (filters.tuitionMax) conditions.push(lte(schools.tuitionFeeMax, filters.tuitionMax));
   if (filters.isPopular) conditions.push(eq(schools.isPopular, true));
+  if (filters.isInternational) conditions.push(eq(schools.isInternational, true));
   if (filters.search) {
     conditions.push(
       or(

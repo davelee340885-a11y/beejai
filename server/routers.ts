@@ -87,6 +87,7 @@ const schoolRouter = t.router({
       tuitionMax: z.number().optional(),
       search: z.string().optional(),
       isPopular: z.boolean().optional(),
+      isInternational: z.boolean().optional(),
       page: z.number().default(1),
       limit: z.number().default(20),
     }).optional())

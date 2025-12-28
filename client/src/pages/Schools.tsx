@@ -172,7 +172,12 @@ export default function Schools() {
     
     // 從 URL 參數讀取篩選條件
     if (selectedType && selectedType !== "all") {
-      filters.type = selectedType as "kindergarten" | "primary" | "secondary" | "international";
+      if (selectedType === "international") {
+        // 國際學校是通過 isInternational 標記的，而不是 type
+        filters.isInternational = true;
+      } else {
+        filters.type = selectedType as "kindergarten" | "primary" | "secondary";
+      }
     }
     if (selectedDistrict && selectedDistrict !== "全部地區") {
       filters.district = selectedDistrict;

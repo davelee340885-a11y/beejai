@@ -15,6 +15,13 @@
       "when": 1766561632755,
       "tag": "0001_great_lady_deathstrike",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1766909525655,
+      "tag": "0002_puzzling_bloodaxe",
+      "breakpoints": true
     }
   ]
 }

@@ -65,6 +65,7 @@ export const schools = mysqlTable("schools", {
   // 狀態
   isVerified: boolean("isVerified").default(false),
   isPopular: boolean("isPopular").default(false),
+  isInternational: boolean("isInternational").default(false),
   viewCount: int("viewCount").default(0),
   
   createdAt: timestamp("createdAt").defaultNow().notNull(),
